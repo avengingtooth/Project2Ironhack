@@ -1,16 +1,21 @@
 const express = require('express');
 const router = express.Router();
 const Tag = require("../models/Tag.model.js")
+const Post = require('../models/Post.model');
+const isPostAuthor = require('../middleware/isPostAuthor.js');
+const isLoggedIn = require('../middleware/isLoggedIn.js');
 
-router.get('/all', (req, res, next) => {
-    res.render('post/feed')
+router.get('/all', async(req, res, next) => {
+    let curVisiblePosts = await Post.find()
+    console.log(curVisiblePosts)
+    res.render('post/feed', {curVisiblePosts})
 })
 
-router.get('/creation', (req, res, next) => {
+router.get('/creation', isLoggedIn, (req, res, next) => {
     res.render('post/create');
 })
 
-router.post('/creation', async(req, res, next) => {
+router.post('/creation', isLoggedIn, async(req, res, next) => {
     try{
         let {title, content, tag} = req.body
         console.log(typeof tag)
@@ -18,7 +23,8 @@ router.post('/creation', async(req, res, next) => {
             tag = [tag]
         }
         let newTags = []
-        await tag.forEach(async(curTag) => {
+        for(let i = 0; i < tag.length; i++){
+            let curTag = tag[i]
             if(curTag.length > 0){
                 try{
                     newTags.push(await Tag.create({name: curTag}))
@@ -26,13 +32,13 @@ router.post('/creation', async(req, res, next) => {
                 catch{
                 }
             }
-        })
+        }
 
         await Post.create({
-            author: req.session.currentUser.id,
+            author: req.session.currentUser._id,
             title: title,
             content: content,
-            tags: tagIds
+            tags: newTags
         })
     
         res.redirect('/')
@@ -50,11 +56,12 @@ router.get('/liked', (req, res, next) => {
     res.render('post/liked')
 })
 
-router.get('/:id/edit', (req, res, next) => {
+router.get('/:postId/edit', isLoggedIn, isPostAuthor, (req, res, next) => {
+    
     res.render('post/edit')
 })
 
-router.post('/:id/edit', (req, res, next) => {
+router.post('/:postId/edit', (req, res, next) => {
     res.render('post/updateEdit')
 })
 
