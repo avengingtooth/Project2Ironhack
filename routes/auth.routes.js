@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 
 // Cloudinary for profile picture upload
-const fileUploader = require('../config/cloudinary.config');
+const {fileUploader, cloudinary} = require('../config/cloudinary.config');
 
 // How many rounds should bcrypt run the salt (default - 10 rounds)
 const saltRounds = 10;
@@ -45,8 +45,10 @@ router.post("/signup", isLoggedOut, fileUploader.single('image-url'),(req, res) 
   if (!password.length) errorMessages.push('Please enter your password')
   else if (password !== passwordConfirmation) errorMessages.push('Please make sure that both password entries are identical.')
 
-  if (req.file) newUser.profilePictureURL = req.file.path;
-  else {
+  if (req.file) {
+    const transformed = cloudinary.url(req.file.filename, {width: 200, crop: "limit"});
+    newUser.profilePictureURL = transformed;
+  } else {
     console.log('no file chosen')
   }
   
