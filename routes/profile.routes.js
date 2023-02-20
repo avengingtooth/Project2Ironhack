@@ -1,6 +1,10 @@
 const express = require('express');
 const { isValidObjectId } = require('mongoose');
 const router = express.Router();
+
+// Cloudinary for profile picture upload
+const fileUploader = require('../config/cloudinary.config');
+
 const isLoggedIn = require('../middleware/isLoggedIn');
 const User = require('../models/User.model');
 
@@ -11,7 +15,6 @@ const saltRounds = 10;
 router.get("/", isLoggedIn, async (req, res, next) => {
   try {
     const user = req.session.currentUser;
-    console.log('Current user:', user)
     res.render("profile/myProfile", {user});
     
   } catch (error) {
@@ -19,10 +22,10 @@ router.get("/", isLoggedIn, async (req, res, next) => {
   }
 });
 
-router.post('/', isLoggedIn, async (req, res, next) => {
+router.post('/', isLoggedIn, fileUploader.single('image-url'), async (req, res, next) => {
   try {
     // get form data, update profile, return to profile
-    const {username, email, firstName, lastName, password, passwordConfirmation, imageUrl} = req.body;
+    const {username, email, firstName, lastName, password, passwordConfirmation} = req.body;
 
     if (password !== passwordConfirmation) {
       // TODO: Error message
@@ -30,12 +33,17 @@ router.post('/', isLoggedIn, async (req, res, next) => {
     }
 
     const updatedUser = {};
-    console.log(updatedUser);
+
     if (username.length) updatedUser.username = username;
     if (email.length) updatedUser.email = email;
     if (firstName.length) updatedUser.firstName = firstName;
     if (lastName.length) updatedUser.lastName = lastName;
-    if (imageUrl.length) updatedUser.profilePictureURL = imageUrl;
+
+    if (req.file) {
+      updatedUser.profilePictureURL = req.file.path;
+    } else {
+      console.log('no file uploaded')
+    }
 
     if (password.length) {
       const salt = await bcrypt.genSalt(saltRounds);
@@ -45,7 +53,6 @@ router.post('/', isLoggedIn, async (req, res, next) => {
     
     const user = await User.findByIdAndUpdate(req.session.currentUser._id, updatedUser, {new: true});
     req.session.currentUser = user;
-    console.log(user)
 
     res.redirect('/profile');
   } catch (error) {
