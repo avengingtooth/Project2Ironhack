@@ -29,7 +29,7 @@ router.post('/creation', async(req, res, next) => {
         })
 
         await Post.create({
-            author: res.session.id,
+            author: req.session.currentUser.id,
             title: title,
             content: content,
             tags: tagIds
