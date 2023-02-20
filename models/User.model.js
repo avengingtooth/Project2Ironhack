@@ -11,13 +11,13 @@ const userSchema = new Schema(
     name: {
       firstName: {
         type: String,
-        required: true,
         trim: true,
+        default: '',
       },
       lastName: {
         type: String,
-        required: true,
         trim: true,
+        default: '',
       }
     },
     email: {
@@ -31,6 +31,11 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    profilePictureURL: {
+      type: String,
+      trim: true,
+      default: '',
+    }
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
