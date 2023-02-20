@@ -8,17 +8,15 @@ const userSchema = new Schema(
       unique: true,
       trim: true,
     },
-    name: {
-      firstName: {
-        type: String,
-        trim: true,
-        default: '',
-      },
-      lastName: {
-        type: String,
-        trim: true,
-        default: '',
-      }
+    firstName: {
+      type: String,
+      trim: true,
+      default: '',
+    },
+    lastName: {
+      type: String,
+      trim: true,
+      default: '',
     },
     email: {
       type: String,
