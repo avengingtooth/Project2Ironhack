@@ -25,8 +25,6 @@ router.get("/signup", isLoggedOut, (req, res) => {
 
 // POST /auth/signup
 router.post("/signup", isLoggedOut, fileUploader.single('image-url'),(req, res) => {
-  console.log('file?', req.file)
-
   const {username, email, firstName, lastName, password, passwordConfirmation} = req.body;
 
   const newUser = {profilePictureURL: ''};
@@ -51,6 +49,7 @@ router.post("/signup", isLoggedOut, fileUploader.single('image-url'),(req, res) 
   else {
     console.log('no file chosen')
   }
+  
 
   if (errorMessages.length) {
     res.status(400).render("auth/signup", {

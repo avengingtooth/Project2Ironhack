@@ -15,7 +15,6 @@ const saltRounds = 10;
 router.get("/", isLoggedIn, async (req, res, next) => {
   try {
     const user = req.session.currentUser;
-    console.log('Current user:', user)
     res.render("profile/myProfile", {user});
     
   } catch (error) {
@@ -23,9 +22,7 @@ router.get("/", isLoggedIn, async (req, res, next) => {
   }
 });
 
-router.post('/',  fileUploader.single('image-url'), async (req, res, next) => {
-  console.log('file?', req.file)
-  console.log('body', req.body)
+router.post('/', isLoggedIn, fileUploader.single('image-url'), async (req, res, next) => {
   try {
     // get form data, update profile, return to profile
     const {username, email, firstName, lastName, password, passwordConfirmation} = req.body;
@@ -43,10 +40,9 @@ router.post('/',  fileUploader.single('image-url'), async (req, res, next) => {
     if (lastName.length) updatedUser.lastName = lastName;
 
     if (req.file) {
-      console.log('file uploaded:', req.file)
       updatedUser.profilePictureURL = req.file.path;
     } else {
-      console.log('no file uploaded', req.file)
+      console.log('no file uploaded')
     }
 
     if (password.length) {
@@ -57,7 +53,6 @@ router.post('/',  fileUploader.single('image-url'), async (req, res, next) => {
     
     const user = await User.findByIdAndUpdate(req.session.currentUser._id, updatedUser, {new: true});
     req.session.currentUser = user;
-    console.log(user)
 
     res.redirect('/profile');
   } catch (error) {
