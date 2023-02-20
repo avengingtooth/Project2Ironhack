@@ -1,6 +1,10 @@
 const express = require('express');
 const { isValidObjectId } = require('mongoose');
 const router = express.Router();
+
+// Cloudinary for profile picture upload
+const fileUploader = require('../config/cloudinary.config');
+
 const isLoggedIn = require('../middleware/isLoggedIn');
 const User = require('../models/User.model');
 
@@ -19,10 +23,12 @@ router.get("/", isLoggedIn, async (req, res, next) => {
   }
 });
 
-router.post('/', isLoggedIn, async (req, res, next) => {
+router.post('/',  fileUploader.single('image-url'), async (req, res, next) => {
+  console.log('file?', req.file)
+  console.log('body', req.body)
   try {
     // get form data, update profile, return to profile
-    const {username, email, firstName, lastName, password, passwordConfirmation, imageUrl} = req.body;
+    const {username, email, firstName, lastName, password, passwordConfirmation} = req.body;
 
     if (password !== passwordConfirmation) {
       // TODO: Error message
@@ -35,7 +41,13 @@ router.post('/', isLoggedIn, async (req, res, next) => {
     if (email.length) updatedUser.email = email;
     if (firstName.length) updatedUser.firstName = firstName;
     if (lastName.length) updatedUser.lastName = lastName;
-    if (imageUrl.length) updatedUser.profilePictureURL = imageUrl;
+
+    if (req.file) {
+      console.log('file uploaded:', req.file)
+      updatedUser.profilePictureURL = req.file.path;
+    } else {
+      console.log('no file uploaded', req.file)
+    }
 
     if (password.length) {
       const salt = await bcrypt.genSalt(saltRounds);

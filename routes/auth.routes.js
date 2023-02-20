@@ -24,7 +24,9 @@ router.get("/signup", isLoggedOut, (req, res) => {
 });
 
 // POST /auth/signup
-router.post("/signup", isLoggedOut, fileUploader.single('profilePictureURL'),(req, res) => {
+router.post("/signup", isLoggedOut, fileUploader.single('image-url'),(req, res) => {
+  console.log('file?', req.file)
+
   const {username, email, firstName, lastName, password, passwordConfirmation} = req.body;
 
   const newUser = {profilePictureURL: ''};
