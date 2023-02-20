@@ -25,7 +25,7 @@ async function isPostAuthor(req, res, next) {
 
         }
         res.status(403);
-        throw Error('Forbidden')
+        throw Error('Forbidden');
     } catch (error) {
         next(error);
     }

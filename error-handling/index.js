@@ -11,7 +11,8 @@ module.exports = (app) => {
 
     // only render if the error ocurred before sending the response
     if (!res.headersSent) {
-      res.status(500).render("error");
+      if (!(res.statusCode > 400)) res.status(500);
+      res.render("error");
     }
   });
 };
