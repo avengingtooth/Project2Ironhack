@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const Tag = require("../models/Tag.model.js")
+const Post = require('../models/Post.model');
+const isPostAuthor = require('../middleware/isPostAuthor.js');
+const isLoggedIn = require('../middleware/isLoggedIn.js');
+
 
 router.get('/all', (req, res, next) => {
     res.render('post/feed')
@@ -29,10 +33,10 @@ router.post('/creation', async(req, res, next) => {
         })
 
         await Post.create({
-            author: res.session.id,
+            author: req.session.currentUser,
             title: title,
             content: content,
-            tags: tagIds
+            tags: newTags
         })
     
         res.redirect('/')
@@ -50,11 +54,12 @@ router.get('/liked', (req, res, next) => {
     res.render('post/liked')
 })
 
-router.get('/:id/edit', (req, res, next) => {
+router.get('/:postId/edit', isLoggedIn, isPostAuthor, (req, res, next) => {
+    
     res.render('post/edit')
 })
 
-router.post('/:id/edit', (req, res, next) => {
+router.post('/:postId/edit', (req, res, next) => {
     res.render('post/updateEdit')
 })
 
