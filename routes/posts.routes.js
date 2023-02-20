@@ -47,9 +47,15 @@ router.get('/:postId/edit', isLoggedIn, isPostAuthor, async(req, res, next) => {
     res.render('post/edit', curPost)
 })
 
-router.post('/:postId/edit', async(req, res, next) => {
+router.post('/:postId/edit', isLoggedIn, isPostAuthor, async(req, res, next) => {
     await Post.updateOne({_id: req.params.postId}, await postData(req.body))
+    console.log(req.params.postId)
     res.redirect(`/posts/${req.params.postId}`)
+})
+
+router.get('/:postId/delete', isLoggedIn, isPostAuthor, async(req, res, next) => {
+    await Post.deleteOne({id: req.params.postId})
+    res.redirect(`/posts/all`)
 })
 
 router.get('/:id', async(req, res, next) => {
