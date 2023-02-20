@@ -7,7 +7,7 @@ const isLoggedIn = require('../middleware/isLoggedIn.js');
 
 router.get('/all', async(req, res, next) => {
     let curVisiblePosts = await Post.find()
-    console.log(curVisiblePosts)
+    console.log(curVisiblePosts[curVisiblePosts.length - 1].tags[0])
     res.render('post/feed', {curVisiblePosts})
 })
 
@@ -33,7 +33,7 @@ router.post('/creation', isLoggedIn, async(req, res, next) => {
                 }
             }
         }
-
+        console.log(newTags)
         await Post.create({
             author: req.session.currentUser._id,
             title: title,
@@ -65,8 +65,8 @@ router.post('/:postId/edit', (req, res, next) => {
     res.render('post/updateEdit')
 })
 
-// router.get('/:id', (req, res, next) => {
-//     res.render('post/post')
-// })
+router.get('/:id', (req, res, next) => {
+    res.render('post/post')
+})
 
 module.exports = router

@@ -19,7 +19,7 @@ const postSchema = new Schema(
             trim: true,
         },
         tags: [{
-            type: Schema.Types.ObjectId,
+            type: Array,
             ref: 'Tag',
             required: true,
         }]
