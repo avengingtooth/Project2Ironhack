@@ -116,8 +116,23 @@ const posts = [
     }
 ]
 
+const comments = [
+    'Your father smells of elderberries!',
+    'Your mother was a hamster!',
+    'This is the END for you, you gutter-crawling cur!',
+    "Soon you'll be wearing my sword like a shish kebab!",
+    'People fall at my feet when they see me coming.',
+    'I once owned a dog that was smarter then you.',
+    'You fight like a dairy farmer.',
+    "I'm not going to take your insolence sitting down!",
+    "I've spoken with apes more polite then you.",
+    "I've heard you were a contemptible sneak.",
+    "Too bad no one's ever heard of YOU at all.",
+]
+
 const userMap = new Map();
-const tagMap = new Map();
+const postSet = new Set();
+const commentSet = new Set();
 
 async function seed() {
     // Drop previous data
@@ -130,6 +145,7 @@ async function seed() {
         CommentLike.deleteMany(),]
     )
 
+    // Seed users
     for (const user of users) {
         const password = user.password;
         const salt = await bcrypt.genSalt(saltRounds);
@@ -139,10 +155,10 @@ async function seed() {
         userMap.set(generatedUser.username, generatedUser);
     }
 
+    // seed posts and corresponding tags
     for (const post of posts) {
         const user = userMap.get(post.author);
         const tags = [];
-        console.log('looking at tags')
         for (const tagName of post.tags) {
             const tag = await Tag.findOneAndUpdate({name: tagName}, {name: tagName}, {new: true, upsert: true})
             tags.push(tag)
@@ -150,6 +166,62 @@ async function seed() {
         post.author = user;
         post.tags = tags;
         const newPost = await Post.create(post);
+        postSet.add(newPost);
+    }
+
+    // seed follows - unlike previous seeds, follows are generated randomly each time seed is run
+    for (const user of userMap.values()) {
+        for (const other of userMap.values()) {
+            // users don't follow themselves
+            if (user._id.equals(other._id)) {
+                continue;
+            }
+
+            // users have 60% chance to follow other users
+            if (Math.random() < 0.6) {
+                const follow = await Follow.create({
+                    follower: user,
+                    followedUser: other
+                })
+            }
+        }
+    }
+
+    // post likes - again, seeding randomly, every user will randomly like some posts (but not their own)
+    for (const user of userMap.values()) {
+        for (const post of postSet) {
+            if (post.author._id.equals(user._id)) {
+                // console.log(`${user.username} skips over their own post '${post.title}`);
+                continue;
+            }
+
+            if (Math.random() < 0.2) {
+                const postLike = await PostLike.create({user: user, post: post});
+            }
+        }
+    }
+
+    // comments - again, randomly, and users can even comment their own posts
+    for (const user of userMap.values()) {
+        for (const post of postSet) {
+            if (Math.random() < 0.35) {
+                const content = comments[Math.floor(Math.random() * comments.length)];
+                const comment = await Comment.create({author: user, post: post, content: content});
+                commentSet.add(comment);
+            }
+        }
+    }
+
+    // comment likes
+    for (const user of userMap.values()) {
+        for (const comment of commentSet) {
+            if (comment.author._id.equals(user._id)) {
+                continue;
+            }
+            if (Math.random() < 0.4) {
+                await CommentLike.create({user: user, comment: comment});
+            }
+        }
     }
 
 
