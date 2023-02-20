@@ -30,7 +30,7 @@ router.post('/', isLoggedIn, async (req, res, next) => {
     }
 
     const updatedUser = {};
-    console.log(updatedUser);
+
     if (username.length) updatedUser.username = username;
     if (email.length) updatedUser.email = email;
     if (firstName.length) updatedUser.firstName = firstName;

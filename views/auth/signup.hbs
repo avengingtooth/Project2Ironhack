@@ -2,23 +2,58 @@
   <h2>Sign Up</h2>
   <form action="/auth/signup" method="POST">
 
-    <label> Username
+  <p>
+    <label> Username:
       <input type="text" name="username" placeholder="Your username" />
     </label>
+  </p>
 
-    <label> Email
+  <p>
+    <label> First Name:
+      <input type="text" name="firstName" placeholder="Your first name" />
+    </label>
+  </p>
+
+  <p>
+    <label> Last Name:
+      <input type="text" name="lastName" placeholder="Your last name" />
+    </label>    
+  </p>
+
+  <p>
+    <label> Email:
       <input type="email" name="email" placeholder="Your email" />
     </label>
+  </p>
 
-    <label> Password
+
+  <p>
+    <label> Password:
       <input type="password" name="password" placeholder="Your password" />
+    </label>    
+  </p>
+
+
+  <p>
+    <label> Password (repeat):
+      <input type="password" name="passwordConfirmation" placeholder="Your password (repeat)" />
     </label>
+  </p>
+
+  <p>
+    <label for="profilePictureURL">Profile Picture:
+      <input type="file" name="profilePictureURL">
+    </label>
+  </p>
 
     <button type="submit">Sign Up</button>
 
-
-    {{#if errorMessage}}
-      <p class="error">{{errorMessage}}</p>
+    {{#if errorMessages}}
+      <ul class="error">
+        {{#each errorMessages}}
+          <li>{{this}}</li>
+        {{/each}}
+      </ul>
     {{/if}}
   </form>
 </div>
