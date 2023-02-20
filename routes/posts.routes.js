@@ -33,7 +33,6 @@ router.post('/creation', isLoggedIn, async(req, res, next) => {
                 }
             }
         }
-        console.log(newTags)
         await Post.create({
             author: req.session.currentUser._id,
             title: title,
@@ -65,8 +64,9 @@ router.post('/:postId/edit', (req, res, next) => {
     res.render('post/updateEdit')
 })
 
-router.get('/:id', (req, res, next) => {
-    res.render('post/post')
+router.get('/:id', async(req, res, next) => {
+    const curPost = await Post.findById(req.params.id)
+    res.render('post/onePost', curPost)
 })
 
 module.exports = router

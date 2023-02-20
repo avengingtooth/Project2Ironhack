@@ -18,11 +18,11 @@ const postSchema = new Schema(
             required: true,
             trim: true,
         },
-        tags: [{
+        tags: {
             type: Array,
             ref: 'Tag',
             required: true,
-        }]
+        }
     }, {
         timestamps: true,
     });

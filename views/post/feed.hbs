@@ -1,5 +1,7 @@
 <div>
     {{#each curVisiblePosts}}
-        {{> post this}}
+        <a href="/posts/{{_id}}">
+            {{> post this}}
+        </a>
     {{/each}}
 </div>
