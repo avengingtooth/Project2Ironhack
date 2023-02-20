@@ -143,22 +143,13 @@ async function seed() {
         const user = userMap.get(post.author);
         const tags = [];
         console.log('looking at tags')
-        for (const tag of post.tags) {
-            let currentTag;
-            if (currentTag = tagMap.get(tag)) {
-                console.log('tag already exists', tag, currentTag)
-            } else {
-                console.log('about to create tag', tag)
-                currentTag = await Tag.create({name: tag});
-                tagMap.set(tag, currentTag);
-                console.log('new tag created for', tag, currentTag)
-            }
-            tags.push(currentTag);
+        for (const tagName of post.tags) {
+            const tag = await Tag.findOneAndUpdate({name: tagName}, {name: tagName}, {new: true, upsert: true})
+            tags.push(tag)
         }
         post.author = user;
         post.tags = tags;
         const newPost = await Post.create(post);
-        console.log(newPost);
     }
 
 
