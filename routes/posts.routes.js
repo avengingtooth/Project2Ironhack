@@ -4,6 +4,7 @@ const Tag = require("../models/Tag.model.js")
 const Post = require('../models/Post.model');
 const isPostAuthor = require('../middleware/isPostAuthor.js');
 const isLoggedIn = require('../middleware/isLoggedIn.js');
+const postData = require('../public/js/postData.js');
 
 router.get('/all', async(req, res, next) => {
     let curVisiblePosts = await Post.find()
@@ -17,22 +18,7 @@ router.get('/creation', isLoggedIn, (req, res, next) => {
 
 router.post('/creation', isLoggedIn, async(req, res, next) => {
     try{
-        let {title, content, tag} = req.body
-        console.log(typeof tag)
-        if (typeof tag == 'string'){
-            tag = [tag]
-        }
-        let newTags = []
-        for(let i = 0; i < tag.length; i++){
-            let curTag = tag[i]
-            if(curTag.length > 0){
-                try{
-                    newTags.push(await Tag.create({name: curTag}))
-                }
-                catch{
-                }
-            }
-        }
+        let {title, content, newTags} = await postData(req.body)
         await Post.create({
             author: req.session.currentUser._id,
             title: title,
@@ -55,13 +41,15 @@ router.get('/liked', (req, res, next) => {
     res.render('post/liked')
 })
 
-router.get('/:postId/edit', isLoggedIn, isPostAuthor, (req, res, next) => {
-    
-    res.render('post/edit')
+router.get('/:postId/edit', isLoggedIn, isPostAuthor, async(req, res, next) => {
+    const curPost = await Post.findById(req.params.postId)
+    console.log(curPost)
+    res.render('post/edit', curPost)
 })
 
-router.post('/:postId/edit', (req, res, next) => {
-    res.render('post/updateEdit')
+router.post('/:postId/edit', async(req, res, next) => {
+    await Post.updateOne({_id: req.params.postId}, await postData(req.body))
+    res.redirect(`/posts/${req.params.postId}`)
 })
 
 router.get('/:id', async(req, res, next) => {
