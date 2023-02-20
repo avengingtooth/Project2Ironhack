@@ -70,6 +70,7 @@ router.post("/signup", isLoggedOut, (req, res) => {
       if (error instanceof mongoose.Error.ValidationError) {
         res.status(500).render("auth/signup", { errorMessage: error.message });
       } else if (error.code === 11000) {
+        console.log(error);
         res.status(500).render("auth/signup", {
           errorMessage:
             "Username and email need to be unique. Provide a valid username or email.",
