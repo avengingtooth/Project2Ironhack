@@ -59,7 +59,6 @@ router.post('/:postId/edit', isLoggedIn, isPostAuthor, async(req, res, next) => 
 
 router.get('/:postId/delete', isLoggedIn, isPostAuthor, async(req, res, next) => {
     await Post.deleteOne({_id: req.params.postId})
-    console.log(Post)
     res.redirect(`/posts/all`)
 })
 
