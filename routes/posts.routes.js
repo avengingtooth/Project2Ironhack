@@ -60,11 +60,14 @@ router.get('/liked', (req, res, next) => {
 
 router.get('/:postId/edit', isLoggedIn, isPostAuthor, async(req, res, next) => {
     console.log(req.params.postId)
-    const curPost = await Post.findById(req.params.postId).populate('author tags')
+    // NOTE: use of isPostAuthor middleware will set the post in locals, don't need another find
+    // const curPost = await Post.findById(req.params.postId).populate('author tags')
+    const curPost = await res.locals.post.populate('author tags');
     res.render('post/edit', curPost)
 })
 
 router.post('/:postId/edit', isLoggedIn, isPostAuthor, async(req, res, next) => {
+    console.log('trying to edit')
     const values = await postData(req.body)
     console.log(values.tags,req.body)
     await Post.updateOne({_id: req.params.postId}, {tags: values.tags})
@@ -72,7 +75,8 @@ router.post('/:postId/edit', isLoggedIn, isPostAuthor, async(req, res, next) => 
 })
 
 router.get('/:postId/delete', isLoggedIn, isPostAuthor, async(req, res, next) => {
-    await Post.deleteOne({_id: req.params.postId})
+    // await Post.deleteOne({_id: req.params.postId})
+    await res.locals.post.delete();
     res.redirect(`/posts/all`)
 })
 
