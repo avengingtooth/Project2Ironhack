@@ -26,7 +26,7 @@ const users = [
         lastName: 'Vimes',
         email: 'vimes@citywatch.gov',
         password: 'qwertyu',
-        profilePictureURL: 'https://www.writeups.org/wp-content/uploads/Sam-Vimes-Discworld-Duke-b.jpg',
+        profilePictureURL: 'http://res.cloudinary.com/dmbdo5peg/image/upload/c_limit,w_200/v1/iron-social/pxmyzwjpsb8ryigxmyvq',
     },
     {
         username: 'carrot',
@@ -34,14 +34,14 @@ const users = [
         lastName: 'Ironfoundersson',
         email: 'captaincarrot@citywatch.gov',
         password: '123456',
-        profilePictureURL: 'https://static.wikia.nocookie.net/discworld/images/0/04/Carrot-Ironfoundersson-1.jpg/revision/latest?cb=20190228222706',
+        profilePictureURL: 'http://res.cloudinary.com/dmbdo5peg/image/upload/c_limit,w_200/v1/iron-social/l3w8rtzelaltabcuipce',
     }, {
         username: 'patrician',
         firstName: 'Havelock',
         lastName: 'Vetinari',
         email: 'patrician@ankh-morpork.com',
         password: 'lajdghengdoe83jas@#$seda!@#ad',
-        profilePictureURL: 'https://upload.wikimedia.org/wikipedia/en/6/6d/Lord_Vetinari.jpg',
+        profilePictureURL: 'http://res.cloudinary.com/dmbdo5peg/image/upload/c_limit,w_200/v1/iron-social/bdqrxkxi0hr3ptt7bcej',
     }, 
     {
         username: 'granny',
@@ -49,7 +49,7 @@ const users = [
         lastName: 'Weatherwax',
         email: 'grannyweatherwax@lancre.dw',
         password: 'password',
-        profilePictureURL: 'https://static.wikia.nocookie.net/discworld/images/2/27/Granny_Weatherwax.jpg/revision/latest?cb=20080703180147',
+        profilePictureURL: 'http://res.cloudinary.com/dmbdo5peg/image/upload/c_limit,w_200/v1/iron-social/whsajsw8wo2mgy2ricor',
     },
     {
         username: 'nannyogg',
@@ -57,7 +57,7 @@ const users = [
         lastName: 'Ogg',
         email: 'nannyogg@lancre.dw',
         password: 'Hedgehog',
-        profilePictureURL: 'https://static.wikia.nocookie.net/discworld/images/8/80/Nanny_Ogg.jpg/revision/latest/scale-to-width-down/250?cb=20080703180032',
+        profilePictureURL: 'http://res.cloudinary.com/dmbdo5peg/image/upload/c_limit,w_200/v1/iron-social/pixc9bs91jcw06zerrkt',
     },
     {
         username: 'mottschi',
@@ -65,7 +65,7 @@ const users = [
         lastName: 'Mottschall',
         email: 'basti@ironhack.com',
         password: '123456',
-        profilePictureURL: 'https://i.imgur.com/0fF0OyU.jpg',
+        profilePictureURL: 'http://res.cloudinary.com/dmbdo5peg/image/upload/c_limit,w_200/v1/iron-social/kuo3j8kdkcv9myfyk7ay',
     },
     {
         username: 'emma',
