@@ -3,7 +3,7 @@ const { isValidObjectId } = require('mongoose');
 const router = express.Router();
 
 // Cloudinary for profile picture upload
-const fileUploader = require('../config/cloudinary.config');
+const {fileUploader, cloudinary} = require('../config/cloudinary.config');
 
 const isLoggedIn = require('../middleware/isLoggedIn');
 const User = require('../models/User.model');
@@ -40,7 +40,9 @@ router.post('/', isLoggedIn, fileUploader.single('image-url'), async (req, res, 
     if (lastName.length) updatedUser.lastName = lastName;
 
     if (req.file) {
-      updatedUser.profilePictureURL = req.file.path;
+      const transformed = cloudinary.url(req.file.filename, {width: 200, crop: "limit"});
+      updatedUser.profilePictureURL = transformed;
+      
     } else {
       console.log('no file uploaded')
     }
