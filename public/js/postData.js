@@ -19,7 +19,7 @@ let postData = async(info) => {
             }
         }
     }
-    return {title, content, newTags}
+    return {title, content, tags: newTags}
 }
 
 module.exports = postData

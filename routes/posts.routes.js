@@ -48,12 +48,15 @@ router.get('/liked', (req, res, next) => {
 })
 
 router.get('/:postId/edit', isLoggedIn, isPostAuthor, async(req, res, next) => {
-    const curPost = await Post.findById(req.params.postId)
+    console.log(req.params.postId)
+    const curPost = await Post.findById(req.params.postId).populate('author tags')
     res.render('post/edit', curPost)
 })
 
 router.post('/:postId/edit', isLoggedIn, isPostAuthor, async(req, res, next) => {
-    await Post.updateOne({_id: req.params.postId}, await postData(req.body))
+    const values = await postData(req.body)
+    console.log(values.tags,req.body)
+    await Post.updateOne({_id: req.params.postId}, {tags: values.tags})
     res.redirect(`/posts/${req.params.postId}`)
 })
 
@@ -64,7 +67,7 @@ router.get('/:postId/delete', isLoggedIn, isPostAuthor, async(req, res, next) =>
 
 router.get('/:id', async(req, res, next) => {
     const curPost = await Post.findById(req.params.id).populate('author tags')
-    const correctUser = curPost.author._id == req.session.currentUser._id
+    const correctUser = curPost.author.id === req.session.currentUser._id
     res.render('post/onePost', {curPost, correctUser})
 })
 
