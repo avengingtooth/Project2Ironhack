@@ -49,18 +49,17 @@ router.get('/liked', (req, res, next) => {
 
 router.get('/:postId/edit', isLoggedIn, isPostAuthor, async(req, res, next) => {
     const curPost = await Post.findById(req.params.postId)
-    console.log(curPost)
     res.render('post/edit', curPost)
 })
 
 router.post('/:postId/edit', isLoggedIn, isPostAuthor, async(req, res, next) => {
     await Post.updateOne({_id: req.params.postId}, await postData(req.body))
-    console.log(req.params.postId)
     res.redirect(`/posts/${req.params.postId}`)
 })
 
 router.get('/:postId/delete', isLoggedIn, isPostAuthor, async(req, res, next) => {
-    await Post.deleteOne({id: req.params.postId})
+    await Post.deleteOne({_id: req.params.postId})
+    console.log(Post)
     res.redirect(`/posts/all`)
 })
 
