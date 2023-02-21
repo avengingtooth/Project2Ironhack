@@ -67,7 +67,7 @@ router.get('/:postId/delete', isLoggedIn, isPostAuthor, async(req, res, next) =>
 
 router.get('/:id', async(req, res, next) => {
     const curPost = await Post.findById(req.params.id).populate('author tags')
-    const correctUser = curPost.author.id === req.session.currentUser._id
+    const correctUser = curPost.author._id.equals(req.session.currentUser._id);
     res.render('post/onePost', {curPost, correctUser})
 })
 
