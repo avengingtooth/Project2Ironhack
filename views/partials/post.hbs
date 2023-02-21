@@ -1,6 +1,7 @@
 <h1>{{post.title}}</h1>
-<a href="">{{post.author.username}}</a>
+<a href="/profile/{{post.author._id}}">{{post.author.username}}</a>
 <p>{{post.content}}</p>
+
 <div>
     {{#each post.tags}}
         <p class="tags">#{{name}}</p>
