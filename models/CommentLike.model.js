@@ -16,6 +16,8 @@ const commentLikeSchema = new Schema(
         timestamps: true,
     });
 
+commentLikeSchema.index({user: 1, comment: 1}, {unique: true});
+
 const CommentLike = model('CommentLike', commentLikeSchema);
 
 module.exports = CommentLike;
