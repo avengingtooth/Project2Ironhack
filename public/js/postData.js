@@ -13,7 +13,7 @@ let postData = async(info) => {
         let curTag = tag[i]
         if(curTag.length > 0){
             try{
-                newTags.push(await Tag.create({name: curTag}))
+                newTags.push(await Tag.findOneAndUpdate({name: curTag}, {name: curTag}, {new: true, upsert: true}));
             }
             catch{
             }
