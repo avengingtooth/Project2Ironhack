@@ -25,7 +25,12 @@ async function likePost(event) {
     const postId = event.target.closest('.post').dataset.id;
     const url = `${apiBaseUrl}/like/${postId}`;
     const response = await axios.post(url);
-    console.log(response.data);
+    if (response.status === 201) {
+
+    } else {
+        console.log('Error while liking Post:', response.data.errorMessage)
+    }
+    
 }
 
 async function unlikePost(event) {
