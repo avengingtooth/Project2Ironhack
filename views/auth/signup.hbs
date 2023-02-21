@@ -43,6 +43,7 @@
     <p>
       <label for="image-url">Profile Picture:
         <input type="file" name="image-url">
+        <img id="preview" src="" alt="Preview of selected picture" width="200px" style="display: none;">
       </label>
     </p>
 
@@ -57,3 +58,6 @@
     {{/if}}
   </form>
 </div>
+
+
+<script src="/js/preview.js" type="module"></script>
