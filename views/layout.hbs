@@ -14,11 +14,11 @@
       <div id="userProfile">
         {{#if currentUser}}
           {{> profileNavView}}
+          <a href="/posts/creation">Create Post</a>
         {{else}}
           {{> loginNav}}
         {{/if}}
       </div>
-      <a href="/posts/creation">Create Post</a>
       <a href="/posts/all">Feed</a>
     </nav>
     {{{body}}}

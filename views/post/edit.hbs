@@ -3,8 +3,8 @@
     <input type="text" name = 'content'placeholder="Content" value="{{content}}">
     <div id = 'tagContainer' name = 'tags'>
         <button type = "button" id="newTagBtn">newTagBtn</button>
-        {{#each tag}}
-            <p>{{this}}</p>
+        {{#each tags}}
+            <input type="text" placeholder="Tag" name = 'tag' value="{{name}}"></input>
         {{/each}}
     </div>
     <button>Update</button>
