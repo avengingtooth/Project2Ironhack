@@ -1,5 +1,5 @@
-<div>
-    {{> post curPost}}
+<div class="post" data-id="{{_id}}" data-author="{{author}}">
+    {{> post this}}
     {{#if correctUser}}
         {{> postModification curPost}}
     {{/if}}
