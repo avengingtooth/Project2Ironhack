@@ -11,15 +11,14 @@
   <body>
     <nav>
       <a href="/">Home</a>
-      <div id="userProfile">
+      <a href="/posts/all">Feed</a>
+      {{!-- <div id="userProfile"> --}}
         {{#if currentUser}}
           {{> profileNavView}}
         {{else}}
           {{> loginNav}}
         {{/if}}
-      </div>
-      <a href="/posts/creation">Create Post</a>
-      <a href="/posts/all">Feed</a>
+      {{!-- </div> --}}
     </nav>
     {{{body}}}
 
