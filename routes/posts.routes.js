@@ -8,8 +8,8 @@ const postData = require('../public/js/postData.js');
 
 router.get('/all', async(req, res, next) => {
     try{
-        let curVisiblePosts = await Post.find()
-        console.log(curVisiblePosts[curVisiblePosts.length - 1].tags[0])
+        let curVisiblePosts = await Post.find().populate('author tags')
+        console.log(curVisiblePosts[curVisiblePosts.length - 1])
         res.render('post/feed', {curVisiblePosts})
     }
     catch(error){
@@ -63,8 +63,9 @@ router.get('/:postId/delete', isLoggedIn, isPostAuthor, async(req, res, next) =>
 })
 
 router.get('/:id', async(req, res, next) => {
-    const curPost = await Post.findById(req.params.id)
-    res.render('post/onePost', curPost)
+    const curPost = await Post.findById(req.params.id).populate('author tags')
+    const correctUser = curPost.author._id == req.session.currentUser._id
+    res.render('post/onePost', {curPost, correctUser})
 })
 
 module.exports = router
