@@ -13,6 +13,9 @@ const followSchema = new Schema({
     }
 });
 
+// users cannot follow another user multiple times at the same time
+followSchema.index({follower: 1, followedUser: 1}, {unique: true});
+
 const Follow = model('Follow', followSchema);
 
 module.exports = Follow;

@@ -14,8 +14,13 @@ const postLikeSchema = new Schema(
         }
     }, {
         timestamps: true,
-    });
+});
+
+// each user can have only one active like on a post
+postLikeSchema.index({user: 1, post: 1}, {unique: true});
 
 const PostLike = model('PostLike', postLikeSchema);
+
+
 
 module.exports = PostLike;

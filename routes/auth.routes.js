@@ -5,6 +5,9 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 
+// Cloudinary for profile picture upload
+const {fileUploader, cloudinary} = require('../config/cloudinary.config');
+
 // How many rounds should bcrypt run the salt (default - 10 rounds)
 const saltRounds = 10;
 
@@ -21,22 +24,38 @@ router.get("/signup", isLoggedOut, (req, res) => {
 });
 
 // POST /auth/signup
-router.post("/signup", isLoggedOut, (req, res) => {
-  const { username, email, password } = req.body;
+router.post("/signup", isLoggedOut, fileUploader.single('image-url'),(req, res) => {
+  const {username, email, firstName, lastName, password, passwordConfirmation} = req.body;
 
-  // Check that username, email, and password are provided
-  if (username === "" || email === "" || password === "") {
-    res.status(400).render("auth/signup", {
-      errorMessage:
-        "All fields are mandatory. Please provide your username, email and password.",
-    });
+  const newUser = {profilePictureURL: ''};
+  const errorMessages = [];
 
-    return;
+  if (username.length) newUser.username = username;
+  else errorMessages.push('Please enter a username');
+
+  if (email.length) newUser.email = email;
+  else errorMessages.push('Please enter an email address');
+
+  if (firstName.length) newUser.firstName = firstName;
+  else errorMessages.push('Please enter your first name');
+
+  if (lastName.length) newUser.lastName = lastName;
+  else errorMessages.push('Please enter your last name');
+
+  if (!password.length) errorMessages.push('Please enter your password')
+  else if (password !== passwordConfirmation) errorMessages.push('Please make sure that both password entries are identical.')
+
+  if (req.file) {
+    const transformed = cloudinary.url(req.file.filename, {width: 200, crop: "limit"});
+    newUser.profilePictureURL = transformed;
+  } else {
+    console.log('no file chosen')
   }
+  
 
-  if (password.length < 6) {
+  if (errorMessages.length) {
     res.status(400).render("auth/signup", {
-      errorMessage: "Your password needs to be at least 6 characters long.",
+      errorMessages,
     });
 
     return;
@@ -61,7 +80,8 @@ router.post("/signup", isLoggedOut, (req, res) => {
     .then((salt) => bcrypt.hash(password, salt))
     .then((hashedPassword) => {
       // Create a user and save it in the database
-      return User.create({ username, email, password: hashedPassword });
+      newUser.password = hashedPassword;
+      return User.create(newUser);
     })
     .then((user) => {
       res.redirect("/auth/login");
@@ -88,25 +108,18 @@ router.get("/login", isLoggedOut, (req, res) => {
 
 // POST /auth/login
 router.post("/login", isLoggedOut, (req, res, next) => {
-  const { username, email, password } = req.body;
+  const { email, password } = req.body;
 
   // Check that username, email, and password are provided
-  if (username === "" || email === "" || password === "") {
+  if (email === "" || password === "") {
     res.status(400).render("auth/login", {
       errorMessage:
-        "All fields are mandatory. Please provide username, email and password.",
+        "All fields are mandatory. Please provide both email and password.",
     });
 
     return;
   }
 
-  // Here we use the same logic as above
-  // - either length based parameters or we check the strength of a password
-  if (password.length < 6) {
-    return res.status(400).render("auth/login", {
-      errorMessage: "Your password needs to be at least 6 characters long.",
-    });
-  }
 
   // Search the database for a user with the email submitted in the form
   User.findOne({ email })
