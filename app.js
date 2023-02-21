@@ -41,7 +41,7 @@ app.use("/profile", profileRoutes)
 const postsRoutes = require("./routes/posts.routes.js");
 app.use("/posts", postsRoutes)
 
-const apiRoutes = require("./routes/posts.routes.js");
+const apiRoutes = require("./routes/api.routes.js");
 app.use("/api", apiRoutes)
 
 app.use('/profile', require('./routes/profile.routes'));
