@@ -10,3 +10,15 @@ a {
 h1 {
   color: 15px;
 }
+
+nav {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 10rem;
+  gap: 2rem;
+}
+
+nav img{
+  max-height: 8rem;
+}
