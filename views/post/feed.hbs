@@ -1,7 +1,7 @@
 <ul>
     {{#each curVisiblePosts}}
         <li class="post" data-id="{{_id}}" data-author="{{author._id}}">
-            {{> post this}}
+            {{> post post=this follows=../follows likes=../likes}}
             <a href="/posts/{{_id}}">Single Post view</a>
         </li>
     {{/each}}
