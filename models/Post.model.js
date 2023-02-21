@@ -18,11 +18,11 @@ const postSchema = new Schema(
             required: true,
             trim: true,
         },
-        tags: {
-            type: Array,
+        tags: [{
+            type: Schema.Types.ObjectId,
             ref: 'Tag',
             required: true,
-        }
+        }]
     }, {
         timestamps: true,
     });
