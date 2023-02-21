@@ -7,9 +7,15 @@ const isLoggedIn = require('../middleware/isLoggedIn.js');
 const postData = require('../public/js/postData.js');
 
 router.get('/all', async(req, res, next) => {
-    let curVisiblePosts = await Post.find()
-    console.log(curVisiblePosts[curVisiblePosts.length - 1].tags[0])
-    res.render('post/feed', {curVisiblePosts})
+    try{
+        let curVisiblePosts = await Post.find()
+        console.log(curVisiblePosts[curVisiblePosts.length - 1].tags[0])
+        res.render('post/feed', {curVisiblePosts})
+    }
+    catch(error){
+        console.log(error)
+        res.render('post/feed')
+    }
 })
 
 router.get('/creation', isLoggedIn, (req, res, next) => {
