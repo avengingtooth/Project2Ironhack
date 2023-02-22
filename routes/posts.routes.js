@@ -4,7 +4,7 @@ const Tag = require("../models/Tag.model.js")
 const Post = require('../models/Post.model');
 const isPostAuthor = require('../middleware/isPostAuthor.js');
 const isLoggedIn = require('../middleware/isLoggedIn.js');
-const postData = require('../utils/postData.js');
+const setupTags = require('../utils/setupTags.js');
 const Follow = require('../models/Follow.model.js');
 const PostLike = require('../models/PostLike.model.js');
 
@@ -35,18 +35,27 @@ router.get('/creation', isLoggedIn, (req, res, next) => {
 
 router.post('/creation', isLoggedIn, async(req, res, next) => {
     try{
-        let {title, content, newTags} = await postData(req.body)
+        let {title, content, tag} = req.body;
+        const tags = await setupTags(tag);
+
+        const errorMessages = [];
+        if (!title.length) errorMessages.push('Please enter a title for your post!');
+        if (!content.length) errorMessages.push('Please enter a body for your post!');
+
+        if (errorMessages.length) return res.render('post/create', {post: {title, content, tags}, errorMessages})
+
         await Post.create({
             author: req.session.currentUser._id,
-            title: title,
-            content: content,
-            tags: newTags
+            title,
+            content,
+            tags
         })
     
         res.redirect('/')
     }
+
     catch(error){
-        console.log(error)
+        next(error)
     }
 })
  
@@ -112,9 +121,14 @@ router.get('/:postId/edit', isLoggedIn, isPostAuthor, async(req, res, next) => {
 router.post('/:postId/edit', isLoggedIn, isPostAuthor, async(req, res, next) => {
     console.log('trying to edit, provided values:', req.body)
     try {
-        const values = await postData(req.body)
-        console.log(values)
-        await Post.findByIdAndUpdate(req.params.postId, values)
+        let {title, content, tag} = req.body;
+        const tags = await setupTags(tag);
+
+        const updatedPost = {tags}
+        if (title.length) updatedPost.title = title;
+        if (content.length) updatedPost.content = content;
+
+        await Post.findByIdAndUpdate(req.params.postId, updatedPost)
         res.redirect(`/posts/${req.params.postId}`)
     } catch (error) {
         next(error);
