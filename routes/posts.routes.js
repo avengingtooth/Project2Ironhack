@@ -25,7 +25,7 @@ router.get('/all', async(req, res, next) => {
     }
     catch(error){
         console.log(error)
-        res.render('post/feed')
+        next(error)
     }
 })
 
@@ -50,12 +50,50 @@ router.post('/creation', isLoggedIn, async(req, res, next) => {
     }
 })
  
-router.get('/following', (req, res, next) => {
-    res.render('post/following')
+router.get('/following', isLoggedIn, async (req, res, next) => {
+    try {
+        // create arrays of all users the user follows, and of all posts the user liked
+        let follows = [];
+        let likes = [];
+
+        follows = await Follow.find({follower: req.session.currentUser});
+        likes = await PostLike.find({user: req.session.currentUser});
+        likes = likes.map(elem => elem.post);
+        follows = follows.map(elem => elem.followedUser);
+
+        let curVisiblePosts = await Post.find({
+            'author': {$in: follows}
+        }).populate('author tags')
+        
+        res.render('post/feed', {curVisiblePosts, follows, likes})
+    }
+    catch(error){
+        console.log(error)
+        next(error)
+    }
 })
 
-router.get('/liked', (req, res, next) => {
-    res.render('post/liked')
+router.get('/liked', async (req, res, next) => {
+    try {
+        // create arrays of all users the user follows, and of all posts the user liked
+        let follows = [];
+        let likes = [];
+
+        follows = await Follow.find({follower: req.session.currentUser});
+        likes = await PostLike.find({user: req.session.currentUser});
+        likes = likes.map(elem => elem.post);
+        follows = follows.map(elem => elem.followedUser);
+
+        let curVisiblePosts = await Post.find({
+            '_id': {$in: likes}
+        }).populate('author tags')
+        
+        res.render('post/feed', {curVisiblePosts, follows, likes})
+    }
+    catch(error){
+        console.log(error)
+        next(error)
+    }
 })
 
 router.get('/:postId/edit', isLoggedIn, isPostAuthor, async(req, res, next) => {
