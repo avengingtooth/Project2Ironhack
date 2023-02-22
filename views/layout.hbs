@@ -14,15 +14,15 @@
     <nav>
       <a href="/">Home</a>
       <a href="/posts/all">All Posts</a>
-      <a href="/posts/following">Posts by followed users</a>
-      <a href="/posts/liked">Liked Posts</a>
       {{!-- <div id="userProfile"> --}}
-        {{#if currentUser}}
-          {{> profileNavView}}
-          <a href="/posts/creation">Create Post</a>
-        {{else}}
-          {{> loginNav}}
-        {{/if}}
+      {{#if currentUser}}
+        <a href="/posts/following">Posts by followed users</a>
+        <a href="/posts/liked">Liked Posts</a>
+        {{> profileNavView}}
+        <a href="/posts/creation">Create Post</a>
+      {{else}}
+        {{> loginNav}}
+      {{/if}}
       {{!-- </div> --}}
     </nav>
     {{{body}}}
