@@ -90,4 +90,26 @@ router.get('/comments/:postId', async (req, res, next) => {
     }
 });
 
+router.post('/comments/:postId', isLoggedIn, async (req, res, next) => {
+    try {
+        console.log('body in comment post', req.body)
+        const id = req.params.postId;
+        if (isValidObjectId(id)) {
+            const {content} = req.body;
+            if (!content.length) {
+                return res.status(400).json({errorMessage: 'Unable to create a comment with an empty body!'})
+            }
+            const author = req.session.currentUser;
+
+            const comment = await (await Comment.create({author, content, post: id})).populate('author', 'username');
+
+            return res.status(201).json({comment});
+        }
+
+        res.status(404).json({errorMessage: `Specified post not found!`});
+    } catch (error) {
+        next(error);
+    }
+});
+
 module.exports = router
