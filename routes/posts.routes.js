@@ -4,7 +4,7 @@ const Tag = require("../models/Tag.model.js")
 const Post = require('../models/Post.model');
 const isPostAuthor = require('../middleware/isPostAuthor.js');
 const isLoggedIn = require('../middleware/isLoggedIn.js');
-const postData = require('../public/js/postData.js');
+const postData = require('../utils/postData.js');
 const Follow = require('../models/Follow.model.js');
 const PostLike = require('../models/PostLike.model.js');
 

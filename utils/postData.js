@@ -1,4 +1,4 @@
-const Tag = require("../../models/Tag.model")
+const Tag = require("../models/Tag.model")
 
 let postData = async(info) => {
     let {title, content, tag} = info
