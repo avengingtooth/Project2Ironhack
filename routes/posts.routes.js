@@ -121,7 +121,7 @@ router.post('/:postId/edit', isLoggedIn, isPostAuthor, async(req, res, next) => 
     }
 })
 
-router.get('/:postId/delete', isLoggedIn, isPostAuthor, async(req, res, next) => {
+router.post('/:postId/delete', isLoggedIn, isPostAuthor, async(req, res, next) => {
     // await Post.deleteOne({_id: req.params.postId})
     try {
         await res.locals.post.delete();

@@ -1,4 +1,9 @@
 <div>
     <a href="/posts/{{_id}}/edit">Edit</a>
-    <a href="/posts/{{_id}}/delete">Delete</a>
+
+    <form action="/posts/{{_id}}/delete" method="post" class="form-delete">
+        <input type="submit" value="Delete">
+    </form>
 </div>
+
+<script src="/js/delete.js" type="module"></script>
