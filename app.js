@@ -43,7 +43,7 @@ app.use("/", indexRoutes);
 
 const authRoutes = require("./routes/auth.routes");
 app.use("/auth", authRoutes);
-
+ 
 const profileRoutes = require("./routes/profile.routes");
 app.use("/profile", profileRoutes)
 

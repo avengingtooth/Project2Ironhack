@@ -1,0 +1,5 @@
+{{>searchOptions this}}
+{{#each queryResults}}
+    <img src="{{profilePictureURL}}" alt="{{username}}'s profile picture">
+    <a href="/profile/{{_id}}">{{username}}</a>
+{{/each}}
