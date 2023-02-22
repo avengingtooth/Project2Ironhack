@@ -26,6 +26,22 @@ hbs.registerHelper('ifArrayIncludesId', (array, id, options) => {
     return options.inverse();
 })
 
+hbs.registerHelper('dateFormat', (date, options) => {
+    // const date = new Date();
+    const year = date.getFullYear();
+    let month = date.getMonth();
+    let day = date.getDay();
+    let hour = date.getHours();
+    let minutes = date.getMinutes();
+    let seconds = date.getSeconds();
+    if (month < 10) month = '0' + month;
+    if (day < 10) day = '0' + day;
+    if (hour < 10) hour = '0' + hour;
+    if (minutes < 10) minutes = '0' + minutes;
+    if (seconds < 10) seconds = '0' + seconds;
+    return `${year}-${month}-${day} ${hour}:${minutes}:${seconds}`;
+})
+
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require("./config")(app);
 
