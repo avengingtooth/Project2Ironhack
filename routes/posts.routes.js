@@ -62,22 +62,35 @@ router.get('/:postId/edit', isLoggedIn, isPostAuthor, async(req, res, next) => {
     console.log(req.params.postId)
     // NOTE: use of isPostAuthor middleware will set the post in locals, don't need another find
     // const curPost = await Post.findById(req.params.postId).populate('author tags')
-    const curPost = await res.locals.post.populate('author tags');
-    res.render('post/edit', curPost)
+    try {
+        const curPost = await res.locals.post.populate('author tags');
+        res.render('post/edit', curPost)    
+    } catch (error) {
+        next(error)
+    }
+    
 })
 
 router.post('/:postId/edit', isLoggedIn, isPostAuthor, async(req, res, next) => {
-    console.log('trying to edit')
-    const values = await postData(req.body)
-    console.log(values.tags,req.body)
-    await Post.updateOne({_id: req.params.postId}, {tags: values.tags})
-    res.redirect(`/posts/${req.params.postId}`)
+    console.log('trying to edit, provided values:', req.body)
+    try {
+        const values = await postData(req.body)
+        console.log(values)
+        await Post.findByIdAndUpdate(req.params.postId, values)
+        res.redirect(`/posts/${req.params.postId}`)
+    } catch (error) {
+        next(error);
+    }
 })
 
 router.get('/:postId/delete', isLoggedIn, isPostAuthor, async(req, res, next) => {
     // await Post.deleteOne({_id: req.params.postId})
-    await res.locals.post.delete();
-    res.redirect(`/posts/all`)
+    try {
+        await res.locals.post.delete();
+        res.redirect(`/posts/all`)
+    } catch (error) {
+        next(error);
+    }
 })
 
 router.get('/:id', async(req, res, next) => {
