@@ -1,0 +1,14 @@
+<p>
+    <img src="{{user.profilePictureURL}}" alt="Profile Picture of {{user.username}}">
+    username: {{user.username}}
+</p>
+
+<p>
+    email: {{user.email}}
+</p>
+
+<div>
+    {{#each post}}
+            {{> post post=this follows=../follows likes=../likes}}
+    {{/each}}
+</div>

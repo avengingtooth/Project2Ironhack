@@ -10,12 +10,25 @@ const router = express.Router();
 // searches for users
 router.use('/users', async(req, res, next) => {
     const searchValue = req.query.search
-    const queryResults = await User.find({
-        username: {
-            $regex: searchValue,
-            $options: 'i'
+    const users = await User.find(
+        {
+            username: {
+                $regex: searchValue,
+                $options: 'i'
+            }
         },
-    })
+        {
+            password: 0
+        }
+    )
+    let queryResults = []
+    for (let i = 0; i < users.length; i++){
+        let curUser = users[i]._id
+        let curUserPosts = await Post.find({author: curUser._id}).populate('author tags')
+        let [follows, likes] = await likesAndFollows(curUser)
+        queryResults.push({user: users[i], post: curUserPosts, follows: follows, likes: likes})
+        console.log(queryResults)
+    }
 
     if(queryResults.length > 0){
         res.render('search/userResults', {searchValue, queryResults})
@@ -34,9 +47,8 @@ router.use('/post', async(req, res, next) => {
             $options: 'i'
         },
     }).populate('author tags')
-    console.log(queryResults)
     // fetches likes and follows in order to pass it when rendering post
-    let [follows, likes] = await likesAndFollows(req)
+    let [follows, likes] = await likesAndFollows(req.session.currentUser)
 
     if(queryResults.length > 0){
         res.render('search/postResults', {searchValue, queryResults, follows, likes})
@@ -58,7 +70,7 @@ router.use('/tag', async(req, res, next) => {
     })
     // gets all posts which use the tags
     const queryResults = await Post.find({tags: {$in: tagId}}).populate('author tags')
-    let [follows, likes] = await likesAndFollows(req)
+    let [follows, likes] = await likesAndFollows(req.session.currentUser)
 
     if(queryResults.length > 0){
         res.render('search/postResults', {searchValue, queryResults, follows, likes})

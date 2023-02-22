@@ -1,6 +1,6 @@
 {{!-- results page for user type search --}}
 {{>searchOptions this}}
 {{#each queryResults}}
-    <img src="{{profilePictureURL}}" alt="{{username}}'s profile picture">
-    <a href="/profile/{{_id}}">{{username}}</a>
+    <h2>{{user.username}}</h2>
+    {{> userPosts this}}
 {{/each}}
