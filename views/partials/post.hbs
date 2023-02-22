@@ -3,7 +3,7 @@
 <p class="created">Posted on {{dateFormat post.createdAt}}</p>
 <p>{{post.content}}</p>
 
-<div>
+<div class="post-tags">
     {{#each post.tags}}
         <a class="tags" href="/search/tag?search={{name}}">#{{name}}</a>
     {{/each}}
