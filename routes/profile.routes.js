@@ -1,6 +1,9 @@
 const express = require('express');
 const { isValidObjectId } = require('mongoose');
 const router = express.Router();
+const Post = require('../models/Post.model')
+const likesAndFollows = require('../utils/fetchLikesAndFollows')
+
 
 // Cloudinary for profile picture upload
 const {fileUploader, cloudinary} = require('../config/cloudinary.config');
@@ -68,7 +71,9 @@ router.get("/:userId", isLoggedIn, async (req, res, next) => {
     if (!isValidObjectId(id)) throw Error(`${id} is not a valid user id!`);
 
     const user = await User.findById(id)
-    res.render("profile/userProfile", {user});
+    let curUserPosts = await Post.find({author: id}, {password: 0}).populate('author tags')
+    let [follows, likes] = await likesAndFollows(user)
+    res.render("profile/userProfile", {queryResults: [{user: user, post: curUserPosts, follows: follows, likes: likes}]});
 
   } catch (error) {
     next(error);

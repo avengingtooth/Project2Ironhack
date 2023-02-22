@@ -2,7 +2,6 @@
 <a href="/profile/{{post.author._id}}">{{post.author.username}}</a>
 <p class="created">Posted on {{dateFormat post.createdAt}}</p>
 <p>{{post.content}}</p>
-
 <div>
     {{#each post.tags}}
         <a class="tags" href="/search/tag?search={{name}}">#{{name}}</a>

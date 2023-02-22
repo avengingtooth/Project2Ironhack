@@ -1,10 +1,4 @@
-<h2>{{user.username}}'s profile</h2>
-
-<p>
-    <img src="{{user.profilePictureURL}}" alt="Profile Picture of {{user.username}}">
-    username: {{user.username}}
-</p>
-
-<p>
-    email: {{user.email}}
-</p>
+{{#each queryResults}}
+    <h2>{{user.username}}</h2>
+    {{> userPosts this}}
+{{/each}}
