@@ -16,6 +16,15 @@ const hbs = require("hbs");
 const app = express();
 
 hbs.registerPartials('views/partials')
+hbs.registerHelper('ifUserIsPostAuthor', (user, post, options) => {
+    if (post.author._id.equals(user._id)) return options.fn(post);
+    return options.inverse(post);
+});
+
+hbs.registerHelper('ifArrayIncludesId', (array, id, options) => {
+    if (array.some((elem) => elem.equals(id))) return options.fn();
+    return options.inverse();
+})
 
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require("./config")(app);

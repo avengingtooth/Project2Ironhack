@@ -1,6 +1,6 @@
-<div class="post" data-id="{{_id}}" data-author="{{author._id}}">
-    {{> post curPost}}
-    {{#if correctUser}}
-        {{> postModification curPost}}
-    {{/if}}
+<div class="post" data-id="{{curPost._id}}" data-author="{{curPost.author._id}}">
+    {{> post post=curPost}}
+    {{#ifUserIsPostAuthor currentUser curPost}}
+        {{> postModification this}}
+    {{/ifUserIsPostAuthor}}
 </div>

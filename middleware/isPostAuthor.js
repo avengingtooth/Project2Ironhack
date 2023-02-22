@@ -12,14 +12,9 @@ async function isPostAuthor(req, res, next) {
     try {
         const id = req.params.postId
         if (isValidObjectId(id)) {
-            console.log('id', id)
             const post = await Post.findById(id).populate('tags').populate('author');
-            res.locals.post = post;
-            console.log('Post', post)
-            console.log('author', post.author, '\ncurrent user', req.session.currentUser);
             if (post.author._id.equals(req.session.currentUser._id)) {
                 res.locals.post = post;
-                console.log("hurray")
                 return next();
             }
 
