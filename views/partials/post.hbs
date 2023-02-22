@@ -5,7 +5,7 @@
 
 <div>
     {{#each post.tags}}
-        <p class="tags">#{{name}}</p>
+        <a class="tags" href="/search/tag?search={{name}}">#{{name}}</a>
     {{/each}}
 </div>
 
