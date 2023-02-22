@@ -1,8 +1,10 @@
+<link rel="stylesheet" href="/stylesheets/posts.css">
 <form action="/posts/creation" method="POST">
-    <input type="text" name = 'title' placeholder="Title">
-    <input type="text" name = 'content'placeholder="Content">
+    <input class="title" type="text" name = 'title' placeholder="Title">
+    <textarea class="content" name = 'content'placeholder="Content"></textarea>
     <div id = 'tagContainer'>
-        <button type = "button" id="newTagBtn">newTagBtn</button>
+        <button type = "button" id="newTagBtn">new tag</button>
+        {{> tag}}
     </div>
     <button>Post</button>
     <script src="/js/createTagInput.js"></script>
