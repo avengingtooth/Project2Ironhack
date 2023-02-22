@@ -10,7 +10,7 @@ const PostLike = require('../models/PostLike.model.js');
 
 router.get('/all', async(req, res, next) => {
     try{
-        let curVisiblePosts = await Post.find().populate('author tags')
+        let curVisiblePosts = await Post.find().sort('-createdAt').populate('author tags');
 
         // create arrays of all users the user follows, and of all posts the user liked
         let follows = [];
@@ -72,7 +72,7 @@ router.get('/following', isLoggedIn, async (req, res, next) => {
 
         let curVisiblePosts = await Post.find({
             'author': {$in: follows}
-        }).populate('author tags')
+        }).sort('-createdAt').populate('author tags')
         
         res.render('post/feed', {curVisiblePosts, follows, likes})
     }
@@ -95,7 +95,7 @@ router.get('/liked', async (req, res, next) => {
 
         let curVisiblePosts = await Post.find({
             '_id': {$in: likes}
-        }).populate('author tags')
+        }).sort('-createdAt').populate('author tags')
         
         res.render('post/feed', {curVisiblePosts, follows, likes})
     }
