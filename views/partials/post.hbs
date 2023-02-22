@@ -1,5 +1,6 @@
 <h1>{{post.title}}</h1>
 <a href="/profile/{{post.author._id}}">{{post.author.username}}</a>
+<p class="created">Posted on {{dateFormat post.createdAt}}</p>
 <p>{{post.content}}</p>
 
 <div>
