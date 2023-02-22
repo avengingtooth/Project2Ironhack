@@ -6,6 +6,7 @@ const Follow = require('../models/Follow.model');
 const Post = require('../models/Post.model');
 const PostLike = require('../models/PostLike.model');
 const User = require('../models/User.model');
+const Comment = require('../models/Comment.model');
 
 router.post('/follow/:userId', isLoggedIn, async (req, res, next) => {
     try {
@@ -68,11 +69,25 @@ router.delete('/like/:postId', async (req, res, next) => {
                 return res.status(201).json({message: `You are no longer liking this post`});
             }
         }
-        // user not found, display error
+        // post not found, display error
         res.status(404).json({errorMessage: `Specified post not found!`});
     } catch (error) {
         next(error);
     }
-})
+});
+
+router.get('/comments/:postId', async (req, res, next) => {
+    try {
+        const id = req.params.postId;
+        if (isValidObjectId(id)) {
+            const comments = await Comment.find({post: id}, 'author content createdAt').populate('author', 'username');
+            return res.status(201).json({comments});
+        }
+
+        res.status(404).json({errorMessage: `Specified post not found!`});
+    } catch (error) {
+        next(error);
+    }
+});
 
 module.exports = router

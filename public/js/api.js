@@ -3,8 +3,12 @@ const allUnlikeButtons = document.querySelectorAll('.btn-unlike');
 const allFollowButtons = document.querySelectorAll('.btn-follow');
 const allUnfollowButtons = document.querySelectorAll('.btn-unfollow');
 
+const allcommentButtons = document.querySelectorAll('.btn-comments');
+const allPosts = document.querySelectorAll('.post');
+
 const apiBaseUrl = '/api';
 
+// Set up for like/unlike buttons
 for (const likeButton of allLikeButtons) {
     likeButton.addEventListener('click', likePost);
 }
@@ -13,6 +17,7 @@ for (const unlikeButton of allUnlikeButtons) {
     unlikeButton.addEventListener('click', unlikePost);
 }
 
+// setup for follow/unfollow buttons
 for (const followButton of allFollowButtons) {
     followButton.addEventListener('click', followUser);
 }
@@ -21,6 +26,68 @@ for (const unfollowButton of allUnfollowButtons) {
     unfollowButton.addEventListener('click', unfollowUser);
 }
 
+
+// loop through all posts to fetch their comments and set up the posts event handler
+for (const post of allPosts) {
+    const postId = post.dataset.id;
+    const url = `${apiBaseUrl}/comments/${postId}`;
+    const commentContainer = post.querySelector('.comments-container')
+    const button = post.querySelector('.btn-comments');
+    button.textContent = `Show ${post.dataset.commentCount} comment${post.dataset.commentCount == 1 ? '' : 's'}`;
+    button.addEventListener('click', showComments);
+
+    try {
+        const response = await axios.get(url);
+        if (response.status === 201) {
+            const comments = response.data.comments; // the api should return an array of 0 or more comments
+            post.dataset.commentCount = comments.length;
+            button.textContent = `Show ${post.dataset.commentCount} comment${post.dataset.commentCount == 1 ? '' : 's'}`;
+
+
+            /* Each comment will be of the following structure:
+            {
+                "_id": "63f6213e6dfc11b67164c0b6",
+                "author": {
+                    "_id": "63f6213c6dfc11b67164c053",
+                    "username": "commander_vimes"
+                },
+                "content": "Your mother was a hamster!",
+                "createdAt": "2023-02-22T14:05:50.898Z"
+            }
+            */
+            for (const comment of comments) {
+                const commentId = comment._id;
+                const author = comment.author.username;
+                const timestamp = formatDateTime(new Date(comment.createdAt));
+                const content = comment.content;
+
+                const commentDiv = document.createElement('div');
+                const metadataDiv = document.createElement('div');
+                const contentElement = document.createElement('p');
+                const authorElement = document.createElement('h4');
+                const timestampElement = document.createElement('p');
+
+                timestampElement.textContent = `Posted on ${timestamp}`;
+                contentElement.textContent = content;
+                commentDiv.dataset.author = commentId;
+                authorElement.textContent = author;
+
+                metadataDiv.appendChild(authorElement);
+                metadataDiv.appendChild(timestampElement);
+                commentDiv.appendChild(metadataDiv);
+                commentDiv.appendChild(contentElement);
+
+                commentContainer.appendChild(commentDiv);
+                
+            }
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+// event handler functions
 async function likePost(event) {
     const postId = event.target.closest('.post').dataset.id;
     const button = event.target;
@@ -113,4 +180,45 @@ async function unfollowUser(event) {
     } catch (error) {
         console.log('critical error while unfollowing user', error)
     }
+}
+
+function showComments(event) {
+    const post = event.target.closest('.post');
+    const commentContainer = post.querySelector('.comments-container');
+    const button = event.target;
+
+    commentContainer.style.display = 'block';
+
+    button.removeEventListener('click', showComments);
+    button.textContent = `Hide comment${post.dataset.commentCount == 1 ? '' : 's'}`;
+    button.addEventListener('click', hideComments);
+}
+
+function hideComments(event) {
+    const post = event.target.closest('.post');
+    const commentContainer = post.querySelector('.comments-container');
+    const button = event.target;
+
+    commentContainer.style.display = 'none';
+
+    button.removeEventListener('click', hideComments);
+    button.textContent = `Show ${post.dataset.commentCount} comment${post.dataset.commentCount == 1 ? '' : 's'}`;
+    button.addEventListener('click', showComments);
+}
+
+
+// helper functions
+function formatDateTime(date) {
+    const year = date.getFullYear();
+    let month = date.getMonth();
+    let day = date.getDay();
+    let hour = date.getHours();
+    let minutes = date.getMinutes();
+    let seconds = date.getSeconds();
+    if (month < 10) month = '0' + month;
+    if (day < 10) day = '0' + day;
+    if (hour < 10) hour = '0' + hour;
+    if (minutes < 10) minutes = '0' + minutes;
+    if (seconds < 10) seconds = '0' + seconds;
+    return `${year}-${month}-${day} ${hour}:${minutes}:${seconds}`;
 }

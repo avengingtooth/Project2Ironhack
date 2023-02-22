@@ -22,3 +22,7 @@ nav {
 nav img{
   max-height: 8rem;
 }
+
+.comments-container {
+  display: none;
+}
