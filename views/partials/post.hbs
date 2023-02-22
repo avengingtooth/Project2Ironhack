@@ -8,6 +8,15 @@
         <a class="tags" href="/search/tag?search={{name}}">#{{name}}</a>
     {{/each}}
 </div>
+<div>
 
-{{#ifArrayIncludesId likes post._id}}<button class="btn-unlike">Unlike</button>{{else}}<button class="btn-like">Like</button>{{/ifArrayIncludesId}}
-{{#ifArrayIncludesId follows post.author._id}}<button class="btn-unfollow follow-unfollow">Unfollow author</button>{{else}}<button class="btn-follow follow-unfollow">Follow author</button>{{/ifArrayIncludesId}}
+</div>
+<div class="post-bottom-row">
+    {{#ifArrayIncludesId likes post._id}}<button class="btn-unlike">Unlike</button>{{else}}<button class="btn-like">Like</button>{{/ifArrayIncludesId}}
+    {{#ifArrayIncludesId follows post.author._id}}<button class="btn-unfollow follow-unfollow">Unfollow author</button>{{else}}<button class="btn-follow follow-unfollow">Follow author</button>{{/ifArrayIncludesId}}
+    <button class="btn-comments">Show comments</button>
+</div>
+<div class="comments-container">
+    
+</div>
+
