@@ -31,14 +31,17 @@
         <input name="lastName" type="text" value="{{user.lastName}}">
     </div>
     <div>
-        <label for="image-url">Profile Picture:</label>
-        <input type="file" name="image-url">
-    </div>
-    <div>
         <label for="password">New Password</label>
         <input type="password" name="password">
         <label for="passwordConfirmation">New Password (repeat)</label>
         <input type="password" name="passwordConfirmation">
     </div>
+    <div>
+        <label for="image-url">Profile Picture:</label>
+        <input type="file" name="image-url">
+        <img id="preview" src="" alt="Preview of selected picture" width="200px" style="display: none;">
+    </div>
     <button>Save</button>
 </form>
+
+<script src="/js/preview.js" type="module"></script>
