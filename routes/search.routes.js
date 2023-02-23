@@ -21,17 +21,17 @@ router.use('/users', async(req, res, next) => {
             password: 0
         }
     )
-    let queryResults = []
-    for (let i = 0; i < users.length; i++){
-        let curUser = users[i]._id
-        let curUserPosts = await Post.find({author: curUser._id}).populate('author tags')
-        let [follows, likes] = await likesAndFollows(curUser)
-        queryResults.push({user: users[i], post: curUserPosts, follows: follows, likes: likes})
-        console.log(queryResults)
-    }
+    // let queryResults = []
+    // for (let i = 0; i < users.length; i++){
+    //     let curUser = users[i]._id
+    //     let curUserPosts = await Post.find({author: curUser._id}).populate('author tags')
+    //     let [follows, likes] = await likesAndFollows(curUser)
+    //     queryResults.push({user: users[i], post: curUserPosts, follows: follows, likes: likes})
+    //     console.log(queryResults)
+    // }
 
-    if(queryResults.length > 0){
-        res.render('search/userResults', {searchValue, queryResults})
+    if(users.length > 0){
+        res.render('search/userResults', {searchValue, queryResults:users})
     }
     else{
         res.render('search/noResult', {searchValue})

@@ -1,12 +1,3 @@
-<p>
-    <img src="{{user.profilePictureURL}}" alt="Profile Picture of {{user.username}}">
-    username: {{user.username}}
-</p>
-
-<p>
-    email: {{user.email}}
-</p>
-
 <ul class="posts-feed">
     {{#each post}}
             <li class="post-container" data-id="{{_id}}" data-author="{{author._id}}">{{> post post=this follows=../follows likes=../likes currentUser=../currentUser}}</li>

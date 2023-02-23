@@ -1,6 +1,7 @@
 @import url('./remedy-reset.css');
 @import url('./colors.css');
 @import url('./posts.css');
+@import url('./search.css');
 
 body {
   background-color: var(--background-color);

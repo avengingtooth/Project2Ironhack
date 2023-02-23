@@ -1,6 +1,19 @@
 {{!-- results page for user type search --}}
 {{>searchOptions this}}
-{{#each queryResults}}
-    <h2>{{user.username}}</h2>
-    {{> userPosts this}}
+
+<ul class="user-list">
+    {{#each queryResults}}
+        <li class="user-search-result">
+            <picture>
+                <img src="{{profilePictureURL}}" alt="Profile Picture of {{username}}">
+            </picture>
+            <div class="user-data">
+                    <a class='link-profile' href="/profile/${{_id}}"><h4>{{username}}</h4></a>
+                    <p>{{firstName}} {{lastName}}</p>
+                    <p>{{email}}</p>
+            </div>
+            
+            {{!-- {{> userPosts this}} --}}
+        </li>
 {{/each}}
+</ul>

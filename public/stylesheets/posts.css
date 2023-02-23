@@ -5,7 +5,7 @@
 }
 
 .post-container {
-    border-radius: 10px;
+    border-radius: 1rem;
     border: 1px solid var(--primary-color);
     background-color: var(--post-color);
     padding: 1rem;
@@ -38,6 +38,7 @@
 
 .post-author-img {
     height: 5rem;
+    border-radius: 1rem;
 }
 
 .post-author-username:before, .comment h4:before {
@@ -69,7 +70,7 @@
 }
 
 .post-tags a {
-    border-radius: 5px;
+    border-radius: 1rem;
     border: 1px solid;
     background-color: var(--primary-color);
     color: var(--background-color);
@@ -91,7 +92,7 @@
     height: fit-content;
     border: 0.5px solid;
     border-color: var(--secondary-color);
-    border-radius: 5px;
+    border-radius: 1rem;
     margin: 1rem;
     color: var(--primary-color);
     background-color: white;
@@ -112,7 +113,7 @@
     align-items: end;
     background-color: var(--secondary-color);
     border: 1px solid;
-    border-radius: 5px;
+    border-radius: 1rem;
     padding: 1rem;
     width: 30%;
   }
@@ -143,7 +144,7 @@
     color: var(--background-color);
     border: 0.5px solid var(--background-color);
     width: 100%;
-    border-radius: 10px;
+    border-radius: 1rem;
   }
 
   .btn-follow:hover, .btn-like:hover {
@@ -159,7 +160,7 @@
   }
 
   .comment {
-    border-radius: 5px;
+    border-radius: 0.5rem;
     background-color: var(--post-color);
     padding: 0.5rem 1rem;
     margin: 1rem;
