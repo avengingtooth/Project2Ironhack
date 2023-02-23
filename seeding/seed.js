@@ -112,6 +112,41 @@ const posts = [
         title: 'To be updated',
         content: 'Fun random stuff here',
         tags: ['random']
+    },
+    {
+        author: 'carrot',
+        title: "Warning: Don't buy any sausages from Cut-my-own-throat-dibbler!",
+        content: "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.",
+        tags: ['guard', 'ankh-morpork', 'shades', 'market'],
+    },
+    {
+        author: 'nannyogg',
+        title: 'Hedgehog Song',
+        content: `A severely perverted Ephebian sage,
+        Abandoned all hope, and flew into a rage.
+        He had tried every creature, the great and the small,
+        But the hedgehog can never be buggered at all.
+    
+        For a sheep, best try Lancre; when in Klatch, match a camel
+        Genuese laws permit almost every mammal
+        The Sto plains have sprouts (now, that's sick. What's your call?)
+        And the Hedgehog...
+    
+        It's great fun with a bunny, if you don't mind the queue
+        And a hamster can teach you a hot thing or two,
+        For a bush baby's come-to-bed eyes we all fall,
+        But the hedgehog...
+    
+        You can bandit a bison or shirt-lift a lemming
+        No need for discretion, though folk are condemning
+        When molesting a marmoset, stand proud and tall,
+        But the hedgehog...
+    
+        Try mating a mongoose, or prodding a panda,
+        Or ramming a male sheep, or goosing a gander.
+        When passing the zoo, come in one, come in all,
+        But the hedgehog...`,
+        tags: ['witches', 'song', 'hedgehog', 'drinking']
     }
 ]
 
