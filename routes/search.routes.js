@@ -10,12 +10,13 @@ const router = express.Router();
  * "Adapter" - while the search had to be refactored, I did not want to touch the
  * existing functionality too much - instead, our new search bar will lead to this route
  * where it will then be "rerouted" to original search routes
+ * 
+ * if no category is chosen, defaults to post search
  */
 router.get('/', (req, res, next)=>{
     try {
-        const category = req.query.category;
+        let category = req.query.category || 'post';
         const searchTerm = req.query.search;
-        if (!category) throw Error("no search category specified");
         const url = `/search/${category}?search=${searchTerm}`;
         console.log('rerouting to', url);
         res.redirect(url);
