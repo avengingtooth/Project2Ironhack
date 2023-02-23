@@ -171,7 +171,7 @@
     color: var(--primary-color);
   }
 
-  .link-profile:hover {
+  .link-profile:hover, .link-post:hover {
     text-decoration: none;
     color: var(--text-color);
   }
