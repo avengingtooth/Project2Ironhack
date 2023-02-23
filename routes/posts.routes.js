@@ -48,6 +48,8 @@ router.post('/creation', isLoggedIn, async(req, res, next) => {
             return res.render('post/create', {post: {title, content, tags}, errorMessages})
         }
 
+        content = content.split('\n\r')
+
         await Post.create({
             author: req.session.currentUser._id,
             title,
