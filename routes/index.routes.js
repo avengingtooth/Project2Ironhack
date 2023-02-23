@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-/* GET home page */
+/**
+ * Index page, redirects to our main page, the "all posts" feed
+ */
 router.get("/", (req, res, next) => {
   res.redirect("/posts/all");
 });

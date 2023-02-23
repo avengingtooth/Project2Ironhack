@@ -197,3 +197,28 @@
   .comment h4 {
     margin-top: 0.2rem auto 0.5rem;
   }
+
+  .post-author-options {
+    width: 10ch;
+  }
+
+  .post-author-options div, .post-author-options input[type="submit"] {
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    padding: 0.2rem;
+    font-size: 1rem;
+    margin: 0.5rem;
+    border-radius: 0.5rem;
+    width: 100%;
+    text-align: center;
+    border: none;
+  }
+
+  .post-author-options a {
+    text-decoration: none;
+  }
+
+  .post-author-options div:hover, .post-author-options input[type="submit"]:hover {
+    background-color: var(--background-color);
+    color: var(--primary-color);
+  }
