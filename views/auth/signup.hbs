@@ -1,28 +1,28 @@
 <div id="form">
   <h2>Sign Up</h2>
   <form action="/auth/signup" method="POST" enctype="multipart/form-data">
-
+  {{log newUser}}
     <p>
       <label> Username:
-        <input type="text" name="username" placeholder="Your username" />
+        <input type="text" name="username" placeholder="Your username" {{#if newUser}}value="{{newUser.username}}"{{/if}}/>
       </label>
     </p>
 
     <p>
       <label> First Name:
-        <input type="text" name="firstName" placeholder="Your first name" />
+        <input type="text" name="firstName" placeholder="Your first name" {{#if newUser}}value="{{newUser.firstName}}"{{/if}}/>
       </label>
     </p>
 
     <p>
       <label> Last Name:
-        <input type="text" name="lastName" placeholder="Your last name" />
+        <input type="text" name="lastName" placeholder="Your last name" {{#if newUser}}value="{{newUser.lastName}}"{{/if}}/>
       </label>    
     </p>
 
     <p>
       <label> Email:
-        <input type="email" name="email" placeholder="Your email" />
+        <input type="email" name="email" placeholder="Your email" {{#if newUser}}value="{{newUser.email}}"{{/if}}/>
       </label>
     </p>
 
