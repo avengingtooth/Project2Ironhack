@@ -5,10 +5,30 @@ const User = require('../models/User.model')
 const Tag = require('../models/Tag.model')
 const router = express.Router();
 
+
+/**
+ * "Adapter" - while the search had to be refactored, I did not want to touch the
+ * existing functionality too much - instead, our new search bar will lead to this route
+ * where it will then be "rerouted" to original search routes
+ */
+router.get('/', (req, res, next)=>{
+    try {
+        const category = req.query.category;
+        const searchTerm = req.query.search;
+        if (!category) throw Error("no search category specified");
+        const url = `/search/${category}?search=${searchTerm}`;
+        console.log('rerouting to', url);
+        res.redirect(url);
+    } catch (error) {
+        next(error);
+    }
+});
+
 // query regexp find any value of given field which contain the search value (case insensitive)
 
 // searches for users
 router.use('/users', async(req, res, next) => {
+    const searchCategory = 'users';
     const searchValue = req.query.search
     const users = await User.find(
         {
@@ -31,16 +51,17 @@ router.use('/users', async(req, res, next) => {
     // }
 
     if(users.length > 0){
-        res.render('search/userResults', {searchValue, queryResults:users})
+        res.render('search/userResults', {searchValue, queryResults:users, searchCategory})
     }
     else{
-        res.render('search/noResult', {searchValue})
+        res.render('search/noResult', {searchValue, searchCategory})
     }
 })
 
 // searches for titles
 router.use('/post', async(req, res, next) => {
-    const searchValue = req.query.search
+    const searchValue = req.query.search;
+    const searchCategory = 'post';
     const queryResults = await Post.find({
         title: {
             $regex: searchValue,
@@ -51,16 +72,18 @@ router.use('/post', async(req, res, next) => {
     let [follows, likes] = await likesAndFollows(req.session.currentUser)
 
     if(queryResults.length > 0){
-        res.render('search/postResults', {searchValue, queryResults, follows, likes})
+        res.render('search/postResults', {searchValue, queryResults, follows, likes, searchCategory})
     }
     else{
-        res.render('search/noResult', {searchValue})
+        res.render('search/noResult', {searchValue}, searchCategory)
     }
 })
 
 // searches for tags
 router.use('/tag', async(req, res, next) => {
-    const searchValue = req.query.search
+    const searchValue = req.query.search;
+    const searchCategory = 'tag';
+
     // gets all the matching tags by their id
     const tagId = await Tag.find({
         name: {
@@ -73,10 +96,10 @@ router.use('/tag', async(req, res, next) => {
     let [follows, likes] = await likesAndFollows(req.session.currentUser)
 
     if(queryResults.length > 0){
-        res.render('search/postResults', {searchValue, queryResults, follows, likes})
+        res.render('search/postResults', {searchValue, queryResults, follows, likes, searchCategory})
     }
     else{
-        res.render('search/noResult', {searchValue})
+        res.render('search/noResult', {searchValue, searchCategory})
     }
 })
 

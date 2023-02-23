@@ -29,18 +29,45 @@
 
   <body>
     <nav class="navbar">
-      <a href="/">Home</a>
-      <a href="/posts/all">All Posts</a>
-      {{#if currentUser}}
-        <a href="/posts/following">Posts by followed users</a>
-        <a href="/posts/liked">Liked Posts</a>
-        <a href="/posts/creation">Create Post</a>
-        <a href="/auth/logout">Log Out</a>
-        <a href="/profile"><img src="{{currentUser.profilePictureURL}}" alt="{{currentUser.username}}"></a>
-      {{else}}
-        <a href="/auth/login">Login</a>
-        <a href="/auth/signup">Sign Up</a>
-      {{/if}}
+      <div id="navbar-search">
+        <form action="/search">
+        <div class="search-options">
+          
+          <input type="radio" name="category" id="tag" value="tag" {{#ifStringEquals searchCategory 'tag'}}checked{{/ifStringEquals}}>
+          <label for="tag">Tag</label>
+          
+          <input type="radio" name="category" id="users" value="users" {{#ifStringEquals searchCategory 'users'}}checked{{/ifStringEquals}}>
+          <label for="users">User</label>
+          
+          <input type="radio" name="category" id="posts" value="post" {{#ifStringEquals searchCategory 'post'}}checked{{/ifStringEquals}}>
+          <label for="posts">Posts</label>
+        </div>
+          
+
+          <input type="text" name="search" id="searchterm" class="search-value" {{#if searchValue}}value="{{searchValue}}"{{/if}}>
+          
+          <input type="submit" value="Search" class="search-button">
+        </form>
+      </div>
+
+      <div id="navbar-menu-options">
+          <a href="/posts/all">All Posts</a>
+        {{#if currentUser}}
+          <a href="/posts/following">Posts by followed users</a>
+          <a href="/posts/liked">Liked Posts</a>
+          <a href="/posts/creation">Create Post</a>
+          <a href="/auth/logout">Log Out</a>
+          <a href="/profile">
+            <picture>
+              <img src="{{currentUser.profilePictureURL}}" alt="{{currentUser.username}}">
+            </picture>
+          </a>
+        {{else}}
+          <a href="/auth/login">Login</a>
+          <a href="/auth/signup">Sign Up</a>
+        {{/if}}
+      </div>
+
     </nav>
 
     {{{body}}}

@@ -57,6 +57,11 @@ hbs.registerHelper('dateFormat', (date, options) => {
     return `${year}-${month}-${day} ${hour}:${minutes}:${seconds}`;
 })
 
+hbs.registerHelper('ifStringEquals', (left, right, options) => {
+    if (left === right) return options.fn();
+    return options.inverse();
+})
+
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require("./config")(app);
 
@@ -88,8 +93,9 @@ app.use("/posts", postsRoutes)
 const apiRoutes = require("./routes/api.routes.js");
 app.use("/api", apiRoutes)
 
-const searchRoutes = require("./routes/search.routes.js")
-app.use('/search', searchRoutes)
+const searchRoutes = require("./routes/search.routes.js");
+
+app.use('/search', searchRoutes);
 
 app.use('/profile', require('./routes/profile.routes'));
 
