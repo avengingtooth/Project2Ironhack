@@ -1,6 +1,12 @@
 <div class="post" data-id="{{curPost._id}}" data-author="{{curPost.author._id}}">
     {{> post post=curPost}}
     {{#ifUserIsPostAuthor currentUser curPost}}
-        {{> postModification this}}
+        <div>
+            <a href="/posts/{{_id}}/edit">Edit</a>
+
+            <form action="/posts/{{_id}}/delete" method="post" class="form-delete">
+                <input type="submit" value="Delete">
+            </form>
+        </div>
     {{/ifUserIsPostAuthor}}
 </div>

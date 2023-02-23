@@ -1,3 +1,8 @@
+/**
+ * delete.js
+ * Adds a confirmation request when deleting a post
+ */
+
 const deleteForm = document.querySelector('.form-delete');
 
 deleteForm.addEventListener('submit', confirmDeletion);

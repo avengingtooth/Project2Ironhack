@@ -17,8 +17,8 @@ const saltRounds = 10;
 
 router.get("/", isLoggedIn, async (req, res, next) => {
   try {
-    const user = req.session.currentUser;
-    res.render("profile/myProfile", {user});
+    res.locals.jsScripts.push('preview');
+    res.render("profile/myProfile", {user:req.session.currentUser});
     
   } catch (error) {
     next(error);
@@ -30,17 +30,34 @@ router.post('/', isLoggedIn, fileUploader.single('image-url'), async (req, res, 
     // get form data, update profile, return to profile
     const {username, email, firstName, lastName, password, passwordConfirmation} = req.body;
 
-    if (password !== passwordConfirmation) {
-      // TODO: Error message
-      return res.redirect('/profile')
-    }
-
     const updatedUser = {};
 
-    if (username.length) updatedUser.username = username;
-    if (email.length) updatedUser.email = email;
-    if (firstName.length) updatedUser.firstName = firstName;
-    if (lastName.length) updatedUser.lastName = lastName;
+    if (username.length && username !== req.session.currentUser.username) updatedUser.username = username;
+    if (email.length && email !== req.session.currentUser.email) updatedUser.email = email;
+    if (firstName.length && firstName !== req.session.currentUser.firstName) updatedUser.firstName = firstName;
+    if (lastName.length && lastName !== req.session.currentUser.lastName) updatedUser.lastName = lastName;
+
+    // check for errors with the entered data
+    const errorMessages = [];
+    if (password !== passwordConfirmation) {
+      errorMessages.push("Password and Password confirmation don't match!");
+    }
+
+    if (!errorMessages.length && updatedUser.username) {
+      const userWithSameUsername = await User.findOne({username});
+      if (userWithSameUsername) {
+        errorMessages.push('Username must be unique!')
+      }
+    }
+
+    if (!errorMessages.length && updatedUser.email) {
+        const userWithSameEmail = await User.findOne({email});
+        if (userWithSameEmail) {
+          errorMessages.push('Email must be unique!')
+        }
+    }
+    
+    if (errorMessages.length) return res.render('profile/myProfile', {errorMessages, user:updatedUser});
 
     if (req.file) {
       const transformed = cloudinary.url(req.file.filename, {width: 200, crop: "limit"});
@@ -57,7 +74,8 @@ router.post('/', isLoggedIn, fileUploader.single('image-url'), async (req, res, 
     }
     
     const user = await User.findByIdAndUpdate(req.session.currentUser._id, updatedUser, {new: true});
-    req.session.currentUser = user;
+    req.session.currentUser = user.toObject();
+    delete req.session.currentUser.password;
 
     res.redirect('/profile');
   } catch (error) {
@@ -73,6 +91,7 @@ router.get("/:userId", isLoggedIn, async (req, res, next) => {
     const user = await User.findById(id)
     let curUserPosts = await Post.find({author: id}, {password: 0}).populate('author tags')
     let [follows, likes] = await likesAndFollows(user)
+
     res.render("profile/userProfile", {queryResults: [{user: user, post: curUserPosts, follows: follows, likes: likes, currentUser: req.session.currentUser}]});
 
   } catch (error) {

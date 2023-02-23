@@ -20,14 +20,17 @@ const isLoggedIn = require("../middleware/isLoggedIn");
 
 // GET /auth/signup
 router.get("/signup", isLoggedOut, (req, res) => {
+  res.locals.jsScripts.push('preview');
   res.render("auth/signup");
 });
 
 // POST /auth/signup
-router.post("/signup", isLoggedOut, fileUploader.single('image-url'),(req, res) => {
+router.post("/signup", isLoggedOut, fileUploader.single('image-url'), async (req, res) => {
   const {username, email, firstName, lastName, password, passwordConfirmation} = req.body;
 
   const newUser = {profilePictureURL: ''};
+
+  // Check for possible issues with the provided data, if any are encountered, display an error message
   const errorMessages = [];
 
   if (username.length) newUser.username = username;
@@ -48,14 +51,27 @@ router.post("/signup", isLoggedOut, fileUploader.single('image-url'),(req, res) 
   if (req.file) {
     const transformed = cloudinary.url(req.file.filename, {width: 200, crop: "limit"});
     newUser.profilePictureURL = transformed;
-  } else {
-    console.log('no file chosen')
   }
-  
+
+  // to avoid DB calls when we already found a problem, username/email are only checked for uniqueness
+  // if no other problems were found
+  if (!errorMessages.length) {
+    const userWithSameUsername = await User.findOne({username});
+    if (userWithSameUsername) {
+      errorMessages.push('Username must be unique!')
+    } else {
+        const userWithSameEmail = await User.findOne({email});
+        if (userWithSameEmail) {
+          errorMessages.push('Email must be unique!')
+        }
+    }
+  }
 
   if (errorMessages.length) {
+    res.locals.jsScripts.push('preview');
     res.status(400).render("auth/signup", {
       errorMessages,
+      newUser
     });
 
     return;
@@ -87,6 +103,7 @@ router.post("/signup", isLoggedOut, fileUploader.single('image-url'),(req, res) 
       res.redirect("/auth/login");
     })
     .catch((error) => {
+      res.locals.jsScripts.push('preview');
       if (error instanceof mongoose.Error.ValidationError) {
         res.status(500).render("auth/signup", { errorMessage: error.message });
       } else if (error.code === 11000) {

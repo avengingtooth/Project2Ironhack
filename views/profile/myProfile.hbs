@@ -1,19 +1,28 @@
 <h2>My profile:</h2>
 
 <p>
-    <img src="{{user.profilePictureURL}}" alt="Profile Picture of {{user.username}}">
-    username: {{user.username}}
-    first name: {{user.firstName}}
-    last name: {{user.lastName}}
+    <img src="{{currentUser.profilePictureURL}}" alt="Profile Picture of {{currentUser.username}}">
+    username: {{currentUser.username}}
+    first name: {{currentUser.firstName}}
+    last name: {{currentUser.lastName}}
 </p>
 
 <p>
-    email: {{user.email}}
+    email: {{currentUser.email}}
 </p>
 
 
 <form action="" method="POST" enctype="multipart/form-data">
     <h3>Edit your data</h3>
+
+    {{#if errorMessages}}
+      <ul class="error">
+        {{#each errorMessages}}
+          <li>{{this}}</li>
+        {{/each}}
+      </ul>
+    {{/if}}
+
     <div>
         <label for="username">Username:</label>
         <input name="username" type="text" value="{{user.username}}">
@@ -43,5 +52,3 @@
     </div>
     <button>Save</button>
 </form>
-
-<script src="/js/preview.js" type="module"></script>

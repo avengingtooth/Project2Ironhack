@@ -1,17 +1,6 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
+@import url('./remedy-reset.css');
 
-a {
-  color: #00b7ff;
-}
-
-h1 {
-  color: 15px;
-}
-
-nav {
+.navbar {
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -19,10 +8,35 @@ nav {
   gap: 2rem;
 }
 
-nav img{
+.navbar img{
   max-height: 8rem;
+}
+
+form{
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+input{
+  background-color: none;
+  border: black solid 1px;
+  text-align: center;
+}
+
+.post-title{
+  margin: auto;
+  width: 50%;
+}
+
+.post-content{
+  width: 100%;
+  height: 20rem;
 }
 
 .comments-feed-container {
   display: none;
+}
+
+md-span{
+  display: block;
 }
