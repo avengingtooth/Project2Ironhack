@@ -1,41 +1,53 @@
-{{#if errorMessages}}
-    <ul class="alert error">
-        {{#each errorMessages}}
-            <li>{{this}}</li>
-        {{/each}}
-    </ul>
-{{/if}}
-{{log this}}
-<form action="/posts/creation" method="POST">
-    <input class="title" type="text" name = 'title' placeholder="Title" {{#if post}}value="{{post.title}}"{{/if}}>
-    <textarea class="content" name='content' placeholder="Content">{{#if post}}{{post.content}}{{/if}}</textarea>
-    <div id = 'tagContainer'>
-        <button type = "button" id="newTagBtn">new tag</button>
-        {{#if post}}
-            {{#each post.tags}}
-                {{> tag tagName=name}}
-            {{/each}}
-        {{/if}}
-        {{> tag}}
-    </div>
-    <button>Post</button>
-</form>
+<div id="creationContainer">
+    <section id="create">
+        <div id="error">
+            {{#if errorMessages}}
+                <ul class="alert error">
+                    {{#each errorMessages}}
+                        <li>{{this}}</li>
+                    {{/each}}
+                </ul>
+            {{/if}}
+        </div>
+        <form id="creation" action="/posts/creation" method="POST">
+            <input class="title" type="text" name = 'title' placeholder="Title" {{#if post}}value="{{post.title}}"{{/if}}>
+            <textarea class="content" name='content' placeholder="Content">{{#if post}}{{post.content}}{{/if}}</textarea>
+            <div id = 'tagContainer'>
+                <button type = "button" id="newTagBtn">new tag</button>
+                <div class="allTags">
+                    {{#if post}}
+                        {{#each post.tags}}
+                            {{> tag tagName=name}}
+                        {{/each}}
+                    {{/if}}
+                </div>
+            </div>
+            <button>Post</button>
+        </form>
+    </section>
 
-<div>
-    <h2>Markdown Tips</h2>
-    <ul>
-        <li>
-            <h3>Headers</h3>
-            <p># (number of hashtags modifies size)</p>
-        </li>
-        <li>
-            <h3>Bold</h3>
-            <p>**...**</p>
-        </li>
-        <li>
-            <h3>Italics</h3>
-            <p>*...*</p>
-        </li>
-    </ul>
+    <section id="mdInfo">
+        <div id="mdTips">
+            <div>
+                <h2>Markdown Tips</h2>
+                <ul>
+                    <li>
+                        <h3>Headers</h3>
+                        <p># (number of hashtags modifies size)</p>
+                    </li>
+                    <li>
+                        <h3>Bold</h3>
+                        <p>**...**</p>
+                    </li>
+                    <li>
+                        <h3>Italics</h3>
+                        <p>*...*</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="preview">
+
+        </div>
+    </section>
 </div>
-

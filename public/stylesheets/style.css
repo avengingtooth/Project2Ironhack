@@ -1,6 +1,10 @@
 @import url('./remedy-reset.css');
 @import url('./colors.css');
 
+body{
+  background-color: var(--background-color);
+}
+
 .navbar {
   display: flex;
   justify-content: flex-end;
@@ -13,7 +17,7 @@
   max-height: 8rem;
 }
 
-form{
+/* form{
   display: grid;
   grid-template-columns: 1fr;
 }
@@ -22,7 +26,7 @@ input{
   background-color: none;
   border: black solid 1px;
   text-align: center;
-}
+} */
 
 .post-title{
   margin: auto;
