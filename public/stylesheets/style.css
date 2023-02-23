@@ -1,4 +1,5 @@
 @import url('./remedy-reset.css');
+@import url('./colors.css');
 
 .navbar {
   display: flex;
