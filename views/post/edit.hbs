@@ -1,11 +1,1 @@
-<form action="/posts/{{id}}/edit" method="POST">
-    <input type="text" name = 'title' placeholder="Title" value="{{title}}">
-    <input type="text" name = 'content'placeholder="Content" value="{{content}}">
-    <div id = 'tagContainer' name = 'tags'>
-        <button type = "button" id="newTagBtn">newTagBtn</button>
-        {{#each tags}}
-            <input type="text" placeholder="Tag" name = 'tag' value="{{name}}"></input>
-        {{/each}}
-    </div>
-    <button>Update</button>
-</form>
+{{> postModification route='edit' buttonAction='Update'}}

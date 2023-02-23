@@ -1,0 +1,101 @@
+
+/* general styles */
+#preview, #mdTips, #creation{
+    background-color: var(--post-color);
+    border: var(--primary-color) 1px solid;
+    padding: 3% 0 3% 0;
+    border-radius: 7%;
+    height: 100%;
+}
+
+.creationContainer{
+    display: grid;
+    grid-template-columns: 50% 1fr;
+    padding: 0 5% 0 5%;
+    height: 75%;
+    gap: 3%;
+}
+
+/* right side aka tips and preview styles */
+
+#mdTips{
+    width: 50%;
+    margin-right: 0;
+    margin-left: auto;
+    font-size: small;
+}
+
+#mdTips > div{
+    margin: auto;
+}
+
+#mdTips *{
+    width: fit-content;
+    margin: 0.5rem 0 0.5rem 0;
+    list-style-type: disc;
+}
+
+#preview{
+    margin-top: 2%;
+    width: 100%;
+    align-self: flex-end;
+
+    overflow: scroll;
+}
+
+#mdInfo{
+    display: grid;
+    grid-template-rows: 40% 1fr;
+    gap: 3%;
+}
+
+ /* left side aka form styles */
+
+.creationContainer input, .creationContainer textarea, .creationContainer button{
+    background-color: var(--secondary-color);
+    border: var(--primary-color) solid 1px;
+}
+
+#creation{
+    display: grid;
+    grid-template-rows: 20% 1fr 20% 10%;
+    width: 100%;
+    align-items: center;
+    padding: 10%;
+    gap: 2%;
+}
+
+#creation > *{
+    padding: 2%;
+    height: 100%;
+    width: 100%;
+}
+
+.title{
+    text-align: center;
+    font-size: x-large;
+}
+
+#create{
+    display: grid;
+    grid-template-rows: 20% 1fr;
+}
+
+#tagContainer{
+    overflow: scroll;
+    padding: 0;
+}
+
+#newTagBtn{
+    position: fixed;
+}
+
+#tagContainer input{
+    width: min-content;
+    margin: 0.5% 1% 0.5% 0;
+    height: 30%;
+}
+
+.allTags{
+    margin-top: 6%;
+}
