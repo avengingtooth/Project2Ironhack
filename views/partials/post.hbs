@@ -1,6 +1,37 @@
-<h2>{{post.title}}</h2>
-<a href="/profile/{{post.author._id}}">{{post.author.username}}</a>
-<p class="created">Posted on {{dateFormat post.createdAt}}</p>
+<div class="post-header">
+    
+        <picture class="post-author-pic">
+            <a class='link-profile' href="/profile/{{post.author._id}}">
+                <img class="post-author-img" src="{{post.author.profilePictureURL}}" alt="Profile picture for {{post.author.username}}">
+                <div class="post-author-username">
+                    {{post.author.username}}
+                </div>
+            </a>
+            {{#ifArrayIncludesId follows post.author._id}}
+                <button class="btn-unfollow follow-unfollow">
+                    Unfollow</button>
+            {{else}}
+                <button class="btn-follow follow-unfollow">Follow</button>
+            {{/ifArrayIncludesId}}
+            {{#ifArrayIncludesId likes post._id}}
+                <button class="btn-unlike">Unlike</button>
+            {{else}}
+                <button class="btn-like">Like</button>
+            {{/ifArrayIncludesId}}
+
+        </picture>
+    <div class="post-title-tags">
+        <a class="link-post" href="/posts/{{post._id}}"><h2>{{post.title}}</h2></a>        
+        <div class="post-tags">
+            {{#each post.tags}}
+                <a class="post-tag" href="/search/tag?search={{name}}">{{name}}</a>
+            {{/each}}
+        </div>
+    </div>
+    <p class="post-created-date">Posted on {{dateFormat post.createdAt}}</p>
+</div>
+
+
 
 {{!-- converts text content to markdown format --}}
 <div class="content">
@@ -9,23 +40,18 @@
     {{/each}}
 </div>
 
-<div class="post-tags">
-    {{#each post.tags}}
-        <a class="tags" href="/search/tag?search={{name}}">#{{name}}</a>
-    {{/each}}
-</div>
+
 
 <div class="post-bottom-row">
-    {{#ifArrayIncludesId likes post._id}}<button class="btn-unlike">Unlike</button>{{else}}<button class="btn-like">Like</button>{{/ifArrayIncludesId}}
-    {{#ifArrayIncludesId follows post.author._id}}<button class="btn-unfollow follow-unfollow">Unfollow author</button>{{else}}<button class="btn-follow follow-unfollow">Follow author</button>{{/ifArrayIncludesId}}
-    {{#if currentUser}}<button class="btn-comments">Show comments</button>{{/if}}
+    <div class="posts-comments-main">
+        {{#if currentUser}}<button class="btn-comments">Show comments</button>
+        <div class="comments-container">
+            <div class="comments-feed-container"></div>
+            <form class="new-comment">
+                <textarea name="content" cols="20" rows="3" class="new-comment-content"></textarea>
+                <button class='btn-new-comment' type="submit">Post comment</button>
+            </form>
+        </div>
+        {{/if}}
+    </div>
 </div>
-{{#if currentUser}}
-<div class="comments-container">
-    <form class="new-comment">
-        <textarea name="content" cols="20" rows="3" class="new-comment-content"></textarea>
-        <button class='btn-new-comment' type="submit">New comment</button>
-    </form>
-    <div class="comments-feed-container"></div>
-</div>
-{{/if}}

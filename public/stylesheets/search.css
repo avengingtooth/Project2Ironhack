@@ -1,0 +1,51 @@
+.user-list {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+
+}
+.user-search-result {
+    border: 1px solid;
+    display: flex;
+    width: 20rem;
+    height: 12rem;
+    margin: 1rem;
+    padding: 1rem;
+    background-color: var(--post-color);
+    color: var(--primary-color);
+    border-radius: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.user-search-result picture {
+    width: 10rem;
+    overflow: hidden;
+    display: inline-block;
+    border-radius: 1rem;
+
+}
+
+.user-search-result picture>img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+}
+
+.user-search-result h4:before {
+    content: '@';
+}
+
+.user-data {
+    margin-left: 0.5rem;
+}
+
+.user-data p {
+    width: 17ch;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
