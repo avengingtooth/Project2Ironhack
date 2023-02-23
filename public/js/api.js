@@ -1,3 +1,13 @@
+/**
+ * api.js
+ * Frontend functions used to interact with the backend
+ * implements the functionality for:
+ *  - loading eisiting comments for all posts currently shown on the page
+ *  - commenting on posts (and displaying/hiding the comments)
+ *  - liking/unliking posts
+ *  - following/unfollowing users
+ */
+
 const allLikeButtons = document.querySelectorAll('.btn-like');
 const allUnlikeButtons = document.querySelectorAll('.btn-unlike');
 const allFollowButtons = document.querySelectorAll('.btn-follow');

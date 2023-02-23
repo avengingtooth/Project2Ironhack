@@ -24,6 +24,7 @@ const session = require("express-session");
 // ℹ️ MongoStore in order to save the user session in the database
 // https://www.npmjs.com/package/connect-mongo
 const MongoStore = require("connect-mongo");
+const initializePublicJsScripts = require("../middleware/initializePublicJsScripts");
 
 // Connects the mongo uri to maintain the same naming structure
 const MONGO_URI =
