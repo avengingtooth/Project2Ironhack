@@ -8,6 +8,7 @@
     "seed": "node ./seeding/seed.js"
   },
   "dependencies": {
+    "@types/marked": "^4.0.8",
     "bcrypt": "^5.1.0",
     "cloudinary": "^1.34.0",
     "connect-mongo": "^4.6.0",
@@ -18,6 +19,7 @@
     "express-session": "^1.17.3",
     "hbs": "^4.2.0",
     "install": "^0.13.0",
+    "marked": "^4.2.12",
     "md-block": "^0.0.1",
     "mongoose": "^6.9.2",
     "morgan": "^1.10.0",

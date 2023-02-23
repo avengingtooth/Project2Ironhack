@@ -14,7 +14,7 @@ const postSchema = new Schema(
             maxLength: 100, // TODO: Consider which value we want here, if any
         },
         content: {
-            type: String,
+            type: [String],
             required: true,
             trim: true,
         },
