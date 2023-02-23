@@ -2,6 +2,7 @@
 @import url('./colors.css');
 @import url('./posts.css');
 @import url('./search.css');
+@import url('./profile.css');
 
 body {
   background-color: var(--background-color);

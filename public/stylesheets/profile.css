@@ -1,0 +1,16 @@
+.user-profile {
+    margin: 3rem;
+    background-color: var(--secondary-color);
+    border-radius: 1rem;
+    border: 1px solid var(--primary-color);
+    display: flex;
+    justify-content: space-between;
+}
+
+.user-profile picture {
+    width: 15rem;
+}
+
+.user-profile img {
+    border-radius: 1rem;
+}
