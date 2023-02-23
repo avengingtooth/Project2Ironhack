@@ -5,6 +5,7 @@ function markdownParsing(){
     content.trim()
     if(content[0] == '#'){
         newLine = document.createElement('md-block')
+        newLine.hmin = "3"
     }
     else{
         newLine = document.createElement('md-span')
