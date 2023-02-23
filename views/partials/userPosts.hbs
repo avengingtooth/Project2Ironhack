@@ -7,8 +7,8 @@
     email: {{user.email}}
 </p>
 
-<div>
+<ul>
     {{#each post}}
-            {{> post post=this follows=../follows likes=../likes}}
+            <li class="post" data-id="{{_id}}" data-author="{{author._id}}">{{> post post=this follows=../follows likes=../likes currentUser=../currentUser}}</li>
     {{/each}}
-</div>
+</ul>

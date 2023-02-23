@@ -73,7 +73,7 @@ router.get("/:userId", isLoggedIn, async (req, res, next) => {
     const user = await User.findById(id)
     let curUserPosts = await Post.find({author: id}, {password: 0}).populate('author tags')
     let [follows, likes] = await likesAndFollows(user)
-    res.render("profile/userProfile", {queryResults: [{user: user, post: curUserPosts, follows: follows, likes: likes}]});
+    res.render("profile/userProfile", {queryResults: [{user: user, post: curUserPosts, follows: follows, likes: likes, currentUser: req.session.currentUser}]});
 
   } catch (error) {
     next(error);

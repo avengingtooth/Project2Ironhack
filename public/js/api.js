@@ -203,9 +203,9 @@ async function postComment(event) {
             commentContainer.style.display = 'block';
 
             const button = post.querySelector('.btn-comments')
-            button.removeEventListener('click', hideComments);
-            button.textContent = `Show ${post.dataset.commentCount} comment${post.dataset.commentCount == 1 ? '' : 's'}`;
-            button.addEventListener('click', showComments);
+            button.removeEventListener('click', showComments);
+            button.textContent = `Hide comment${post.dataset.commentCount == 1 ? '' : 's'}`;
+            button.addEventListener('click', hideComments);
         }
 
     } catch (error) {
@@ -253,3 +253,5 @@ function buildCommentDiv(comment) {
 
                 return commentDiv;                
 }
+
+console.log('api loaded')
