@@ -73,7 +73,6 @@ const users = [
         lastName: 'Sellin',
         email: 'emma@ironhack.com',
         password: '123456',
-        profilePictureURL: '',
     },
 ]
 

@@ -7,11 +7,6 @@ body {
   background-color: var(--background-color);
 }
 
-
-body{
-  background-color: var(--background-color);
-}
-
 .navbar {
   display: flex;
   justify-content: flex-end;
@@ -26,8 +21,14 @@ body{
   text-decoration: none;
 }
 
+.navbar a:hover {
+  color: white;
+  text-decoration: underline;
+}
+
 .navbar img{
-  max-height: 8rem;
+  max-height: 10rem;
+
 }
 
 /* form{
