@@ -1,5 +1,11 @@
 @import url('./remedy-reset.css');
 @import url('./colors.css');
+@import url('./posts.css');
+
+body {
+  background-color: var(--background-color);
+}
+
 
 .navbar {
   display: flex;
@@ -7,13 +13,19 @@
   align-items: center;
   height: 10rem;
   gap: 2rem;
+  background-color: var(--primary-color);
+}
+
+.navbar a {
+  color: var(--background-color);
+  text-decoration: none;
 }
 
 .navbar img{
   max-height: 8rem;
 }
 
-form{
+/* form{
   display: grid;
   grid-template-columns: 1fr;
 }
@@ -22,21 +34,15 @@ input{
   background-color: none;
   border: black solid 1px;
   text-align: center;
-}
+} */
 
 .post-title{
   margin: auto;
   width: 50%;
 }
 
-.post-content{
-  width: 100%;
-  height: 20rem;
-}
 
-.comments-feed-container {
-  display: none;
-}
+
 
 md-span{
   display: block;

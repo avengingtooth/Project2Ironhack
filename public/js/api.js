@@ -14,7 +14,7 @@ const allFollowButtons = document.querySelectorAll('.btn-follow');
 const allUnfollowButtons = document.querySelectorAll('.btn-unfollow');
 
 const allcommentButtons = document.querySelectorAll('.btn-comments');
-const allPosts = document.querySelectorAll('.post');
+const allPosts = document.querySelectorAll('.post-container');
 
 const apiBaseUrl = '/api';
 
@@ -69,7 +69,7 @@ for (const post of allPosts) {
 
 // event handler functions
 async function likePost(event) {
-    const postId = event.target.closest('.post').dataset.id;
+    const postId = event.target.closest('.post-container').dataset.id;
     const button = event.target;
     const url = `${apiBaseUrl}/like/${postId}`;
     try {
@@ -81,6 +81,8 @@ async function likePost(event) {
             button.removeEventListener('click', likePost);
             button.addEventListener('click', unlikePost);
             button.textContent = 'Unlike';
+            button.classList.remove('btn-like');
+            button.classList.add('btn-unlike');
 
         } else {
             console.log('Error while liking Post:', response.data.errorMessage)
@@ -91,7 +93,7 @@ async function likePost(event) {
 }
 
 async function unlikePost(event) {
-    const postId = event.target.closest('.post').dataset.id;
+    const postId = event.target.closest('.post-container').dataset.id;
     const button = event.target;
     const url = `${apiBaseUrl}/like/${postId}`;
     try {
@@ -102,6 +104,8 @@ async function unlikePost(event) {
             button.removeEventListener('click', unlikePost);
             button.addEventListener('click', likePost);
             button.textContent = 'Like';
+            button.classList.remove('btn-unlike');
+            button.classList.add('btn-like');
         } else {
             console.log('Error while unliking Post:', response.data.errorMessage)
         }
@@ -111,7 +115,7 @@ async function unlikePost(event) {
 }
 
 async function followUser(event) {
-    const authorId = event.target.closest('.post').dataset.author;
+    const authorId = event.target.closest('.post-container').dataset.author;
     const url = `${apiBaseUrl}/follow/${authorId}`;
     try {
         const response = await axios.post(url);
@@ -125,6 +129,8 @@ async function followUser(event) {
                     button.removeEventListener('click', followUser);
                     button.addEventListener('click', unfollowUser);
                     button.textContent = 'Unfollow';
+                    button.classList.remove('btn-follow');
+                    button.classList.add('btn-unfollow');
                 }
             }
         } else {
@@ -136,7 +142,7 @@ async function followUser(event) {
 }
 
 async function unfollowUser(event) {
-    const authorId = event.target.closest('.post').dataset.author;
+    const authorId = event.target.closest('.post-container').dataset.author;
     const url = `${apiBaseUrl}/follow/${authorId}`;
     const button = event.target;
 
@@ -152,6 +158,8 @@ async function unfollowUser(event) {
                     button.removeEventListener('click', unfollowUser);
                     button.addEventListener('click', followUser);
                     button.textContent = 'Follow';
+                    button.classList.remove('btn-unfollow');
+                    button.classList.add('btn-follow');
                 }
             }
         } else {
@@ -163,7 +171,7 @@ async function unfollowUser(event) {
 }
 
 function showComments(event) {
-    const post = event.target.closest('.post');
+    const post = event.target.closest('.post-container');
     const commentContainer = post.querySelector('.comments-feed-container');
     const button = event.target;
 
@@ -175,7 +183,7 @@ function showComments(event) {
 }
 
 function hideComments(event) {
-    const post = event.target.closest('.post');
+    const post = event.target.closest('.post-container');
     const commentContainer = post.querySelector('.comments-feed-container');
     const button = event.target;
 
@@ -189,7 +197,7 @@ function hideComments(event) {
 async function postComment(event) {
     event.preventDefault();
 
-    const post = event.target.closest('.post');
+    const post = event.target.closest('.post-container');
     const commentContainer = post.querySelector('.comments-feed-container');
     const postId = post.dataset.id;
     const url = `${apiBaseUrl}/comments/${postId}`;
@@ -216,6 +224,7 @@ async function postComment(event) {
             button.removeEventListener('click', showComments);
             button.textContent = `Hide comment${post.dataset.commentCount == 1 ? '' : 's'}`;
             button.addEventListener('click', hideComments);
+            commentDiv.scrollIntoView();
         }
 
     } catch (error) {
@@ -242,6 +251,7 @@ function formatDateTime(date) {
 function buildCommentDiv(comment) {
     const commentId = comment._id;
                 const author = comment.author.username;
+                const authorId = comment.author._id;
                 const timestamp = formatDateTime(new Date(comment.createdAt));
                 const content = comment.content;
 
@@ -250,17 +260,25 @@ function buildCommentDiv(comment) {
                 const contentElement = document.createElement('p');
                 const authorElement = document.createElement('h4');
                 const timestampElement = document.createElement('p');
+                const usernameAnchor = document.createElement('a');
 
-                timestampElement.textContent = `Posted on ${timestamp}`;
+                timestampElement.textContent = `${timestamp}`;
+                timestampElement.classList.add('comment-timestamp');
                 contentElement.textContent = content;
                 commentDiv.dataset.author = commentId;
                 authorElement.textContent = author;
+                usernameAnchor.href = `/profile/${authorId}`;
+                usernameAnchor.classList.add('link-profile');
+                metadataDiv.classList.add('comment-metadata');
 
-                metadataDiv.appendChild(authorElement);
                 metadataDiv.appendChild(timestampElement);
+                metadataDiv.appendChild(usernameAnchor);
+                usernameAnchor.appendChild(authorElement);
                 commentDiv.appendChild(metadataDiv);
                 commentDiv.appendChild(contentElement);
 
+
+                commentDiv.classList.add('comment');
                 return commentDiv;                
 }
 
