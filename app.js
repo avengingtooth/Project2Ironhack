@@ -50,10 +50,14 @@ const projectName = "iron-social";
 
 app.locals.appTitle = `${capitalize(projectName)} created with IronLauncher`;
 
-// 👇 Start handling routes here
+// loading custom middleware that should be used on all routes
 const exposeUsertoView = require("./middleware/exposeUserToView");
-app.use(exposeUsertoView)
+app.use(exposeUsertoView);
 
+const initializePublicJsScripts = require('./middleware/initializePublicJsScripts');
+app.use(initializePublicJsScripts);
+
+// 👇 Start handling routes here
 const indexRoutes = require("./routes/index.routes");
 app.use("/", indexRoutes);
 

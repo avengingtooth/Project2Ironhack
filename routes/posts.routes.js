@@ -30,6 +30,7 @@ router.get('/all', async(req, res, next) => {
 })
 
 router.get('/creation', isLoggedIn, (req, res, next) => {
+    res.locals.jsScripts.push('createTagInput');
     res.render('post/create');
 })
 
@@ -42,7 +43,10 @@ router.post('/creation', isLoggedIn, async(req, res, next) => {
         if (!title.length) errorMessages.push('Please enter a title for your post!');
         if (!content.length) errorMessages.push('Please enter a body for your post!');
 
-        if (errorMessages.length) return res.render('post/create', {post: {title, content, tags}, errorMessages})
+        if (errorMessages.length) {
+            res.locals.jsScripts.push('createTagInput');
+            return res.render('post/create', {post: {title, content, tags}, errorMessages})
+        }
 
         await Post.create({
             author: req.session.currentUser._id,
@@ -73,7 +77,7 @@ router.get('/following', isLoggedIn, async (req, res, next) => {
         let curVisiblePosts = await Post.find({
             'author': {$in: follows}
         }).sort('-createdAt').populate('author tags')
-        
+
         res.render('post/feed', {curVisiblePosts, follows, likes})
     }
     catch(error){
@@ -111,6 +115,7 @@ router.get('/:postId/edit', isLoggedIn, isPostAuthor, async(req, res, next) => {
     // const curPost = await Post.findById(req.params.postId).populate('author tags')
     try {
         const curPost = await res.locals.post.populate('author tags');
+        res.locals.jsScripts.push('createTagInput');
         res.render('post/edit', curPost)    
     } catch (error) {
         next(error)
@@ -145,22 +150,23 @@ router.post('/:postId/delete', isLoggedIn, isPostAuthor, async(req, res, next) =
     }
 })
 
-router.get('/:id', async(req, res, next) => {
-    const curPost = await Post.findById(req.params.id).populate('author tags')
+router.get('/:postId', async(req, res, next) => {
+    const curPost = await Post.findById(req.params.postId).populate('author tags')
 
     // NOTE: this functionality has been used to hbs helper function
     // const correctUser = curPost.author._id.equals(req.session.currentUser._id)
 
-     // create arrays of all users the user follows, and of all posts the user liked
-     let follows = [];
-     let likes = [];
-     if (req.session.currentUser) {
-         follows = await Follow.find({follower: req.session.currentUser});
-         likes = await PostLike.find({user: req.session.currentUser});
-         likes = likes.map(elem => elem.post);
-         follows = follows.map(elem => elem.followedUser);
-     }
+    // create arrays of all users the user follows, and of all posts the user liked
+    let follows = [];
+    let likes = [];
+    if (req.session.currentUser) {
+        follows = await Follow.find({follower: req.session.currentUser});
+        likes = await PostLike.find({user: req.session.currentUser});
+        likes = likes.map(elem => elem.post);
+        follows = follows.map(elem => elem.followedUser);
+    }
 
+    res.locals.jsScripts.push('delete');
     res.render('post/onePost', {curPost, follows, likes})
 })
 

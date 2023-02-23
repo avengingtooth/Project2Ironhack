@@ -20,6 +20,7 @@ const isLoggedIn = require("../middleware/isLoggedIn");
 
 // GET /auth/signup
 router.get("/signup", isLoggedOut, (req, res) => {
+  res.locals.jsScripts.push('preview');
   res.render("auth/signup");
 });
 
@@ -54,6 +55,7 @@ router.post("/signup", isLoggedOut, fileUploader.single('image-url'),(req, res) 
   
 
   if (errorMessages.length) {
+    res.locals.jsScripts.push('preview');
     res.status(400).render("auth/signup", {
       errorMessages,
     });
@@ -87,6 +89,7 @@ router.post("/signup", isLoggedOut, fileUploader.single('image-url'),(req, res) 
       res.redirect("/auth/login");
     })
     .catch((error) => {
+      res.locals.jsScripts.push('preview');
       if (error instanceof mongoose.Error.ValidationError) {
         res.status(500).render("auth/signup", { errorMessage: error.message });
       } else if (error.code === 11000) {

@@ -5,29 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>{{appTitle}}</title>
-    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/style.css"/>
+
+    {{!-- At the moment, we are down to one css file, so removing this code unless we do end up
+          needing individual css files for some pages after all --}}
+    {{!-- {{#each}}
+      <link rel="stylesheet" href="/stylesheets/{{}}.css">
+    {{/each}} --}}
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.3/axios.min.js" integrity="sha512-wS6VWtjvRcylhyoArkahZUkzZFeKB7ch/MHukprGSh1XIidNvHG1rxPhyFnL73M0FC1YXPIXLRDAoOyRJNni/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    {{!-- As almost all of our pages display posts, we will just load the api as part of the base template --}}
     <script type="module" src="/js/api.js"></script>
+
+    {{!-- All other frontend JS scripts can be added dynamically by adding them to the locals --}}
+    {{#each jsScripts}}
+      <script type="module" src="/js/{{this}}.js"></script>
+    {{/each}}
   </head>
 
   <body>
     <nav>
       <a href="/">Home</a>
       <a href="/posts/all">All Posts</a>
-      {{!-- <div id="userProfile"> --}}
       {{#if currentUser}}
         <a href="/posts/following">Posts by followed users</a>
         <a href="/posts/liked">Liked Posts</a>
-        {{> profileNavView}}
+        <a href="/posts/creation">Create Post</a>
+        <a href="/auth/logout">Log Out</a>
+        <a href="/profile"><img src="{{currentUser.profilePictureURL}}" alt="{{currentUser.username}}"></a>
         <a href="/posts/creation">Create Post</a>
       {{else}}
-        {{> loginNav}}
+        <a href="/auth/login">Login</a>
+        <a href="/auth/signup">Sign Up</a>
       {{/if}}
-      {{!-- </div> --}}
     </nav>
+
     {{{body}}}
 
-    <script src="/js/script.js"></script>
   </body>
 
 </html>
