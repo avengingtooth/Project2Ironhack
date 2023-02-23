@@ -28,7 +28,7 @@ router.get("/signup", isLoggedOut, (req, res) => {
 router.post("/signup", isLoggedOut, fileUploader.single('image-url'), async (req, res) => {
   const {username, email, firstName, lastName, password, passwordConfirmation} = req.body;
 
-  const newUser = {profilePictureURL: ''};
+  const newUser = {};
 
   // Check for possible issues with the provided data, if any are encountered, display an error message
   const errorMessages = [];

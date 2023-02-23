@@ -8,6 +8,9 @@ const setupTags = require('../utils/setupTags.js');
 const Follow = require('../models/Follow.model.js');
 const PostLike = require('../models/PostLike.model.js');
 
+/**
+ * Displays a list of all posts
+ */
 router.get('/all', async(req, res, next) => {
     try{
         let curVisiblePosts = await Post.find().sort('-createdAt').populate('author tags');
@@ -29,11 +32,18 @@ router.get('/all', async(req, res, next) => {
     }
 })
 
+/**
+ * Displays the form to create a new post
+ */
 router.get('/creation', isLoggedIn, (req, res, next) => {
     res.locals.jsScripts.push('createTagInput');
     res.render('post/create');
 })
 
+/**
+ * endpoint for the form to create a new post, receives title, content and tags
+ * and creates a post out of those
+ */
 router.post('/creation', isLoggedIn, async(req, res, next) => {
     try{
         let {title, content, tag} = req.body;
@@ -65,6 +75,9 @@ router.post('/creation', isLoggedIn, async(req, res, next) => {
     }
 })
  
+/**
+ * Displays a feed of all posts made by users the current user is following
+ */
 router.get('/following', isLoggedIn, async (req, res, next) => {
     try {
         // create arrays of all users the user follows, and of all posts the user liked
@@ -88,6 +101,9 @@ router.get('/following', isLoggedIn, async (req, res, next) => {
     }
 })
 
+/**
+ * Displays a feed of all posts liked by the current user
+ */
 router.get('/liked', async (req, res, next) => {
     try {
         // create arrays of all users the user follows, and of all posts the user liked
@@ -111,6 +127,9 @@ router.get('/liked', async (req, res, next) => {
     }
 })
 
+/**
+ * Displays a form that allows the user to edit one of his own posts
+ */
 router.get('/:postId/edit', isLoggedIn, isPostAuthor, async(req, res, next) => {
     console.log(req.params.postId)
     // NOTE: use of isPostAuthor middleware will set the post in locals, don't need another find
@@ -125,6 +144,10 @@ router.get('/:postId/edit', isLoggedIn, isPostAuthor, async(req, res, next) => {
     
 })
 
+/**
+ * endpoint for the form to edit a post, receives title, content and tags
+ * and updates the post based on the received values
+ */
 router.post('/:postId/edit', isLoggedIn, isPostAuthor, async(req, res, next) => {
     console.log('trying to edit, provided values:', req.body)
     try {
@@ -142,6 +165,9 @@ router.post('/:postId/edit', isLoggedIn, isPostAuthor, async(req, res, next) => 
     }
 })
 
+/**
+ * endpoint for the option to delete a post (only usable on users own posts)
+ */
 router.post('/:postId/delete', isLoggedIn, isPostAuthor, async(req, res, next) => {
     // await Post.deleteOne({_id: req.params.postId})
     try {
@@ -152,6 +178,9 @@ router.post('/:postId/delete', isLoggedIn, isPostAuthor, async(req, res, next) =
     }
 })
 
+/**
+ * displays a view for a single specific post
+ */
 router.get('/:postId', async(req, res, next) => {
     const curPost = await Post.findById(req.params.postId).populate('author tags')
 

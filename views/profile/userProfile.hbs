@@ -1,4 +1,18 @@
-{{#each queryResults}}
-    <h2>{{user.username}}</h2>
-    {{> userPosts this}}
-{{/each}}
+<div class="user-profile">
+    <picture>
+        <img src="{{user.profilePictureURL}}" alt="Profile picture for {{user.username}}">
+    </picture>
+    <div>
+        <p>Username: {{user.username}}</p>
+        <p>Full Name: {{user.firstName}} {{user.lastName}}</p>
+        <p>Posts: {{postCount}}</p>
+        <p>Comments: {{commentCount}}</p>
+        <p>Follows: {{followCount}}</p>
+        <p>Followers: {{followerCount}}</p>
+    </div>
+
+    {{!-- Empty div below for flex arrangement purpose --}}
+    <div> </div>
+</div>
+
+{{> userPosts}}

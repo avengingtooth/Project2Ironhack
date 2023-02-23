@@ -1,5 +1,7 @@
 <ul class="posts-feed">
-    {{#each post}}
-            <li class="post-container" data-id="{{_id}}" data-author="{{author._id}}">{{> post post=this follows=../follows likes=../likes currentUser=../currentUser}}</li>
+    {{#each posts}}
+            <li class="post-container" data-id="{{_id}}" data-author="{{author._id}}">
+                {{>post post=this follows=../follows likes=../likes currentUser=../currentUser}}
+            </li>
     {{/each}}
 </ul>

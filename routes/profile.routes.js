@@ -2,6 +2,8 @@ const express = require('express');
 const { isValidObjectId } = require('mongoose');
 const router = express.Router();
 const Post = require('../models/Post.model')
+const Follow = require('../models/Follow.model')
+const Comment = require('../models/Comment.model')
 const likesAndFollows = require('../utils/fetchLikesAndFollows')
 
 
@@ -90,9 +92,14 @@ router.get("/:userId", isLoggedIn, async (req, res, next) => {
 
     const user = await User.findById(id)
     let curUserPosts = await Post.find({author: id}, {password: 0}).populate('author tags')
-    let [follows, likes] = await likesAndFollows(user)
+    let [follows, likes] = await likesAndFollows(req.session.currentUser)
 
-    res.render("profile/userProfile", {queryResults: [{user: user, post: curUserPosts, follows: follows, likes: likes, currentUser: req.session.currentUser}]});
+    const followCount = (await Follow.find({follower: user})).length;
+    const followerCount = (await Follow.find({followedUser: user})).length;
+    const postCount = (await Post.find({author: user})).length;
+    const commentCount = (await Comment.find({author: user})).length;
+
+    res.render("profile/userProfile", {user, posts: curUserPosts, follows: follows, likes: likes, followCount, postCount, commentCount, followerCount});
 
   } catch (error) {
     next(error);

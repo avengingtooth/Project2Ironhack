@@ -77,7 +77,6 @@ async function likePost(event) {
         const response = await axios.post(url);
         if (response.status === 201) {
             console.log('like successful')
-            // TODO handle updating the page (changing from like button to unlike button)
             button.removeEventListener('click', likePost);
             button.addEventListener('click', unlikePost);
             button.textContent = 'Unlike';
@@ -98,9 +97,8 @@ async function unlikePost(event) {
     const url = `${apiBaseUrl}/like/${postId}`;
     try {
         const response = await axios.delete(url);
-        if (response.status === 201) {
+        if (response.status === 204) {
             console.log('unlike successful')
-            // TODO handle updating the page (changing from unlike button to like button)
             button.removeEventListener('click', unlikePost);
             button.addEventListener('click', likePost);
             button.textContent = 'Like';
@@ -121,7 +119,6 @@ async function followUser(event) {
         const response = await axios.post(url);
         if (response.status === 201) {
             console.log('follow successful')
-            // TODO handle updating the page (changing from follow button to unfollow button)
             const allPostsByThisAuthor = document.querySelectorAll(`[data-author="${authorId}"]`);
             for (const post of allPostsByThisAuthor) {
                 const buttons = post.querySelectorAll('.follow-unfollow');
@@ -148,9 +145,8 @@ async function unfollowUser(event) {
 
     try {
         const response = await axios.delete(url);
-        if (response.status === 201) {
+        if (response.status === 204) {
             console.log('unfollow successful')
-            // TODO handle updating the page (changing from like button to unlike button)
             const allPostsByThisAuthor = document.querySelectorAll(`[data-author="${authorId}"]`);
             for (const post of allPostsByThisAuthor) {
                 const buttons = post.querySelectorAll('.follow-unfollow');

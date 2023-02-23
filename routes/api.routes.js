@@ -8,6 +8,16 @@ const PostLike = require('../models/PostLike.model');
 const User = require('../models/User.model');
 const Comment = require('../models/Comment.model');
 
+
+/**
+ * API route that will set the current user as follower of the user identified via the id in the url.
+ * 
+ * If the current user is already following that user, nothing will happen (user will still be following,
+ * and no error is returned)
+ * 
+ * returns status 201 if the user was found and is now being followed
+ * returns status 404 if no user was found under the given id (including if the id was not a valid object id)
+ */
 router.post('/follow/:userId', isLoggedIn, async (req, res, next) => {
     try {
         const follower = req.session.currentUser;
@@ -17,7 +27,7 @@ router.post('/follow/:userId', isLoggedIn, async (req, res, next) => {
                 await Follow.findOneAndUpdate({follower, followedUser}, {follower, followedUser}, {upsert: true});
                 return res.status(201).json({message: `You are now following this user.`});
             }
-        } 
+        }
         // user not found, display error
         res.status(404).json({errorMessage: `Specified user not found!`})
     } catch (error) {
@@ -25,6 +35,15 @@ router.post('/follow/:userId', isLoggedIn, async (req, res, next) => {
     }
 })
 
+/**
+ * API route that will remove the current user as follower from the user identified via the id in the url.
+ * 
+ * If the current user is already not following that user, nothing will happen (user will still not be following, 
+ * and no error is returned)
+ * 
+ * returns status 204 if the user was found and is now not being followed
+ * returns status 404 if no user was found under the given id (including if the id was not a valid object id)
+ */
 router.delete('/follow/:userId', isLoggedIn, async (req, res, next) => {
     try {
         const follower = req.session.currentUser;
@@ -32,7 +51,7 @@ router.delete('/follow/:userId', isLoggedIn, async (req, res, next) => {
             const followedUser = await User.findById(req.params.userId);
             if (followedUser) {
                 await Follow.findOneAndDelete({follower, followedUser});
-                return res.status(201).json({message: `You are no longer following this user`});
+                return res.sendStatus(204);
             }
         } 
         // user not found, display error
@@ -42,6 +61,15 @@ router.delete('/follow/:userId', isLoggedIn, async (req, res, next) => {
     }
 })
 
+/**
+ * API route that will set the current user to like the post identified via the id in the url.
+ * 
+ * If the current user is already liking that post, nothing will happen (user will still be liking the post,
+ * and no error is returned)
+ * 
+ * returns status 201 if the post was found and is now liked
+ * returns status 404 if no post was found under the given id (including if the id was not a valid object id)
+ */
 router.post('/like/:postId', async (req, res, next) => {
     try {
         const user = req.session.currentUser;
@@ -59,6 +87,15 @@ router.post('/like/:postId', async (req, res, next) => {
     }
 })
 
+/**
+ * API route that will remove the like of current user from the post identified via the id in the url.
+ * 
+ * If the current user is already not not liking that post, nothing will happen (user will still not be 
+ * liking the post, and no error is returned)
+ * 
+ * returns status 204 if the post was found and is now not liked
+ * returns status 404 if no post was found under the given id (including if the id was not a valid object id)
+ */
 router.delete('/like/:postId', async (req, res, next) => {
     try {
         const user = req.session.currentUser;
@@ -66,7 +103,7 @@ router.delete('/like/:postId', async (req, res, next) => {
             const post = await Post.findById(req.params.postId);
             if (post) {
                 await PostLike.findOneAndDelete({user, post});
-                return res.status(201).json({message: `You are no longer liking this post`});
+                return res.sendStatus(204);
             }
         }
         // post not found, display error
@@ -76,6 +113,13 @@ router.delete('/like/:postId', async (req, res, next) => {
     }
 });
 
+/**
+ * route that will fetch all comments belonging to the post identified via the id in the url and
+ * returns them to the frontend
+ * 
+ * returns status 201 if the comment was created, together with an array of all the comments found for that post
+ * returns status 404 if no post was found under the given id (including if the id was not a valid object id)
+ */
 router.get('/comments/:postId', async (req, res, next) => {
     try {
         const id = req.params.postId;
@@ -90,6 +134,13 @@ router.get('/comments/:postId', async (req, res, next) => {
     }
 });
 
+/**
+ * route that will create a comment sent by the front end via AJAX, on the post identified
+ * via the id in the url
+ * 
+ * returns status 201 if the comment was created
+ * returns status 404 if no post was found under the given id (including if the id was not a valid object id)
+ */
 router.post('/comments/:postId', isLoggedIn, async (req, res, next) => {
     try {
         console.log('body in comment post', req.body)

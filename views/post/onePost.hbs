@@ -1,12 +1,17 @@
-<div class="post" data-id="{{curPost._id}}" data-author="{{curPost.author._id}}">
-    {{> post post=curPost}}
-    {{#ifUserIsPostAuthor currentUser curPost}}
-        <div>
-            <a href="/posts/{{_id}}/edit">Edit</a>
+<div class="posts-feed">
+    <div class="post-container" data-id="{{curPost._id}}" data-author="{{curPost.author._id}}">
+        {{> post post=curPost}}
+        {{#ifUserIsPostAuthor currentUser curPost}}
+            <div class="post-author-options">
+                
+                    <a href="/posts/{{_id}}/edit"><div>Edit</div></a>
+                
 
-            <form action="/posts/{{_id}}/delete" method="post" class="form-delete">
-                <input type="submit" value="Delete">
-            </form>
-        </div>
-    {{/ifUserIsPostAuthor}}
+                <form action="/posts/{{_id}}/delete" method="post" class="form-delete">
+                    <input type="submit" value="Delete">
+                </form>
+            </div>
+        {{/ifUserIsPostAuthor}}
+    </div>
 </div>
+
