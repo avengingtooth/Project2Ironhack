@@ -8,7 +8,7 @@
     height: 100%;
 }
 
-#creationContainer{
+.creationContainer{
     display: grid;
     grid-template-columns: 50% 1fr;
     padding: 0 5% 0 5%;
@@ -51,7 +51,7 @@
 
  /* left side aka form styles */
 
-#creationContainer input, #creationContainer textarea, #creationContainer button{
+.creationContainer input, .creationContainer textarea, .creationContainer button{
     background-color: var(--secondary-color);
     border: var(--primary-color) solid 1px;
 }
