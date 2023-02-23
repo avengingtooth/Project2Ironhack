@@ -23,6 +23,8 @@
 
     {{!-- All other frontend JS scripts can be added dynamically by adding them to the locals --}}
     {{#each jsScripts}}
+      <!-- loading js -->
+      {{log this}}
       <script type="module" src="/js/{{this}}.js"></script>
     {{/each}}
   </head>

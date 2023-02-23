@@ -36,7 +36,7 @@
 {{!-- converts text content to markdown format --}}
 <div class="content">
     {{#each post.content}}
-        <script class='mdConverter' content="{{this}}" type="text/javascript" src="/js/markdownParsing.js"></script>
+        <script class='mdConverter' loc='.content' content="{{this}}" type="text/javascript" src="/js/markdownParsing.js"></script>
     {{/each}}
 </div>
 

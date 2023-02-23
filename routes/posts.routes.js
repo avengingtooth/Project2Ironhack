@@ -30,7 +30,8 @@ router.get('/all', async(req, res, next) => {
 })
 
 router.get('/creation', isLoggedIn, (req, res, next) => {
-    res.locals.jsScripts.push('createTagInput');
+    res.locals.jsScripts.push('createTagInput', 'creationPreview');
+
     res.render('post/create');
 })
 
