@@ -19,3 +19,6 @@ input{
     height: 20rem;
 }
 
+md-span{
+    display: block;
+}
