@@ -33,11 +33,10 @@ input{
   height: 20rem;
 }
 
-md-span{
-  display: block;
-}
-
-
 .comments-feed-container {
   display: none;
+}
+
+md-span{
+  display: block;
 }
