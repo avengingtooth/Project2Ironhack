@@ -1,54 +1,60 @@
 <h2>My profile:</h2>
 
-<p>
-    <img src="{{currentUser.profilePictureURL}}" alt="Profile Picture of {{currentUser.username}}">
-    username: {{currentUser.username}}
-    first name: {{currentUser.firstName}}
-    last name: {{currentUser.lastName}}
-</p>
+<div class="user-profile">
+    <picture>
+        <img src="{{currentUser.profilePictureURL}}" alt="Profile Picture of {{currentUser.username}}">
+    </picture>
 
-<p>
-    email: {{currentUser.email}}
-</p>
+    <div class="profile-data">
+        <p>username: {{currentUser.username}}</p>
+        <p>first name: {{currentUser.firstName}}</p>
+        <p>last name: {{currentUser.lastName}}</p>
+        <p>email: {{currentUser.email}}</p>
+    </div>
 
+    <form action="" method="POST" enctype="multipart/form-data">
+        <h3>Edit your data</h3>
 
-<form action="" method="POST" enctype="multipart/form-data">
-    <h3>Edit your data</h3>
+        {{#if errorMessages}}
+        <ul class="error">
+            {{#each errorMessages}}
+            <li>{{this}}</li>
+            {{/each}}
+        </ul>
+        {{/if}}
 
-    {{#if errorMessages}}
-      <ul class="error">
-        {{#each errorMessages}}
-          <li>{{this}}</li>
-        {{/each}}
-      </ul>
-    {{/if}}
+        <div>
+            <label for="username">Username:</label>
+            <input name="username" type="text" value="{{user.username}}">
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input name="email" type="email" value="{{user.email}}">
+        </div>
+        <div>
+            <label for="firstName">First Name:</label>
+            <input name="firstName" type="text" value="{{user.firstName}}">
+        </div>
+        <div>
+            <label for="lastName">Last Name:</label>
+            <input name="lastName" type="text" value="{{user.lastName}}">
+        </div>
+        <div>
+            <label for="password">New Password</label>
+            <input type="password" name="password">
+        </div>
+        <div>
+            <label for="passwordConfirmation">New Password (repeat)</label>
+            <input type="password" name="passwordConfirmation">
+        </div>
+        <div>
+            <label for="image-url">Profile Picture:</label>
+            <input type="file" name="image-url">
+        </div>
+        <button>Save</button>
+    </form>
 
-    <div>
-        <label for="username">Username:</label>
-        <input name="username" type="text" value="{{user.username}}">
-    </div>
-    <div>
-        <label for="email">Email:</label>
-        <input name="email" type="email" value="{{user.email}}">
-    </div>
-    <div>
-        <label for="firstName">First Name:</label>
-        <input name="firstName" type="text" value="{{user.firstName}}">
-    </div>
-    <div>
-        <label for="lastName">Last Name:</label>
-        <input name="lastName" type="text" value="{{user.lastName}}">
-    </div>
-    <div>
-        <label for="password">New Password</label>
-        <input type="password" name="password">
-        <label for="passwordConfirmation">New Password (repeat)</label>
-        <input type="password" name="passwordConfirmation">
-    </div>
-    <div>
-        <label for="image-url">Profile Picture:</label>
-        <input type="file" name="image-url">
-        <img id="preview" src="" alt="Preview of selected picture" width="200px" style="display: none;">
-    </div>
-    <button>Save</button>
-</form>
+    <picture class="profile-picture-preview">
+        <img src="{{user.profilePictureURL}}" alt="New profile picture" id="profile-picture-preview">
+    </picture>
+</div>
