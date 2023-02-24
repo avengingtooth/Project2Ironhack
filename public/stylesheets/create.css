@@ -43,7 +43,6 @@ body{
 
 #preview{
     margin-top: 2%;
-    overflow: scroll;
 }
 
 #mdInfo, #create{
@@ -56,15 +55,11 @@ body{
 #create form *:not(div){
     background-color: var(--secondary-color);
     border: var(--primary-color) solid 1px;
+
 }
 
 .createTitle, .createContent, #create .submit{
     height: 100%;
-}
-
-#create .submit{
-    padding: 0;
-    align-items: center;
 }
 
 #creation{
