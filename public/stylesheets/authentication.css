@@ -1,0 +1,53 @@
+#login-form{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: left;
+    padding: 3%;
+    margin: 5%;
+    width: 30%;
+    justify-self: center;
+    color: var(--primary-color);
+}
+
+#login-form h2{
+    margin: 0 0 5% 0;
+}
+
+#login-form form, #login-form h2{
+    display: flex;
+    flex-direction: column;
+}
+
+#login-form form > *{
+    margin: 3% 0 3% 0;
+}
+
+#loginBtn{
+    padding: 3%;
+    border: 1px solid var(--primary-color);
+}
+
+#login-form input{
+    background-color: var(--secondary-color);
+    border: var(--primary-color) solid 1px;
+}
+
+.inputs{
+    display: flex;
+    flex-direction: column;
+}
+
+.inputs label{
+    display: grid;
+    grid-template-columns: 1fr auto;
+}
+
+.inputs * {
+    margin: 2% 0 2% 0;
+}
+
+.inputs input{
+    margin-left: 10%;
+}
+

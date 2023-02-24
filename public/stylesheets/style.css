@@ -89,23 +89,21 @@ body {
   border-radius: 1rem;
 }
 
-/* form{
-  display: grid;
-  grid-template-columns: 1fr;
-}
-
-input{
-  background-color: none;
-  border: black solid 1px;
-  text-align: center;
-} */
-
 .post-title{
   margin: auto;
   width: 50%;
 }
 
+.posts-comments-main  button, #login-form button{
+  background-color: var(--primary-color);
+  color: var(--background-color);
+  width: 100%;
+}
 
+.posts-comments-main button:hover, #login-form button:hover{
+  background-color: var(--background-color);
+  color: var(--primary-color);
+}
 
 
 md-span{

@@ -121,16 +121,8 @@
     width: 30%;
   }
 
-  .posts-comments-main  button {
-    background-color: var(--primary-color);
-    color: var(--background-color);
+  .posts-comments-main button{
     border: 0.5px solid var(--background-color);
-    width: 100%;
-  }
-
-  .posts-comments-main button:hover {
-    background-color: var(--background-color);
-    color: var(--primary-color);
   }
 
   .new-comment > * {
