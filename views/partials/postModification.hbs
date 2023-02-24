@@ -11,19 +11,19 @@
             {{/if}}
         </div>
         <form id="creation" action="/posts/{{id}}/{{route}}" method="POST">
-            <input class="title" type="text" name = 'title' placeholder="Title" {{#if post}}value="{{post.title}}"{{/if}}>
-            <textarea class="content" name='content' placeholder="Content">{{#if post}}{{post.content}}{{/if}}</textarea>
+            <input class="createTitle" type="text" name = 'title' placeholder="Title" {{#if post}}value="{{post.title}}"{{/if}}>
+            <textarea class="createContent" name='content' placeholder="Content">{{#if post}}{{post.content}}{{/if}}</textarea>
             <div id = 'tagContainer'>
                 <button type = "button" id="newTagBtn">new tag</button>
                 <div class="allTags">
                     {{#if post}}
                         {{#each post.tags}}
-                            {{> tag tagName=name}}
+                            {{> tag tagName=name class='creationTags'}}
                         {{/each}}
                     {{/if}}
                 </div>
             </div>
-            <button>{{buttonAction}}</button>
+            <button class="submit">{{buttonAction}}</button>
         </form>
     </section>
 
@@ -44,11 +44,40 @@
                         <h3>Italics</h3>
                         <p>*...*</p>
                     </li>
+                    <li>
+                        <h3>Showing Special Characters</h3>
+                        <p>\* \#</p>
+                    </li>
                 </ul>
             </div>
         </div>
-        <div id="preview">
+        <div class="post-container">
+            <div class="post-header">
+                <picture class="post-author-pic">
+                    <a class='link-profile' href="">
+                        <img class="post-author-img" src="{{currentUser.profilePictureURL}}" alt="Profile picture for {{currentUser.username}}">
+                        <div class="post-author-username">
+                            {{currentUser.username}}
+                        </div>
+                    </a>
+                        <button class="btn-follow follow-unfollow">Follow</button>
+                        <button class="btn-like">Like</button>
 
-        </div>
+                </picture>
+                <div class="post-title-tags">
+                    <a class="link-post" href=""><h2 class="previewTitle">Title</h2></a>        
+                    <div class="post-tags" id="previewTags">
+                    </div>
+                </div>
+                <p class="post-created-date">Posted on yyyy-mm-dd hh:mm:ss</p>
+            </div>
+
+
+            <div id="preview" class="content">
+                <div class="previewContent"></div>
+            </div>
+            <p class="post-created-date">Posted on </p>
+        </div>     
+    </div>
     </section>
 </div>

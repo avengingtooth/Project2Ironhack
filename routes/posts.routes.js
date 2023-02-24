@@ -36,7 +36,7 @@ router.get('/all', async(req, res, next) => {
  * Displays the form to create a new post
  */
 router.get('/creation', isLoggedIn, (req, res, next) => {
-    res.locals.jsScripts.push('createTagInput');
+    res.locals.jsScripts.push('createTagInput', 'creationPreview');
     res.render('post/create');
 })
 
