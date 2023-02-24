@@ -49,7 +49,12 @@ router.post("/signup", isLoggedOut, fileUploader.single('image-url'), async (req
   else if (password !== passwordConfirmation) errorMessages.push('Please make sure that both password entries are identical.')
 
   if (req.file) {
-    const transformed = cloudinary.url(req.file.filename, {width: 200, crop: "limit"});
+    let transformed = cloudinary.url(req.file.filename, {width: 200, crop: "limit"});
+    if (transformed.startsWith('http:')) {
+      console.log(transformed)
+      transformed = 'https' + transformed.slice(4);
+      console.log(transformed)
+    }
     newUser.profilePictureURL = transformed;
   }
 
