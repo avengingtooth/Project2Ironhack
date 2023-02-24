@@ -1,53 +1,54 @@
-<div id="form">
+<div id="auth-form" class="post-container">
   <h2>Sign Up</h2>
   <form action="/auth/signup" method="POST" enctype="multipart/form-data">
-  {{log newUser}}
-    <p>
+  <div class="inputs">
+{{!-- <p> --}}
       <label> Username:
         <input type="text" name="username" placeholder="Your username" {{#if newUser}}value="{{newUser.username}}"{{/if}}/>
       </label>
-    </p>
+{{!-- </p> --}}
 
-    <p>
+{{!-- <p> --}}
       <label> First Name:
         <input type="text" name="firstName" placeholder="Your first name" {{#if newUser}}value="{{newUser.firstName}}"{{/if}}/>
       </label>
-    </p>
+{{!-- </p> --}}
 
-    <p>
+{{!-- <p> --}}
       <label> Last Name:
         <input type="text" name="lastName" placeholder="Your last name" {{#if newUser}}value="{{newUser.lastName}}"{{/if}}/>
       </label>    
-    </p>
+{{!-- </p> --}}
 
-    <p>
+{{!-- <p> --}}
       <label> Email:
         <input type="email" name="email" placeholder="Your email" {{#if newUser}}value="{{newUser.email}}"{{/if}}/>
       </label>
-    </p>
+{{!-- </p> --}}
 
 
-    <p>
+{{!-- <p> --}}
       <label> Password:
         <input type="password" name="password" placeholder="Your password" />
       </label>    
-    </p>
+{{!-- </p> --}}
 
 
-    <p>
+{{!-- <p> --}}
       <label> Password (repeat):
         <input type="password" name="passwordConfirmation" placeholder="Your password (repeat)" />
       </label>
-    </p>
+{{!-- </p> --}}
 
-    <p>
-      <label for="image-url">Profile Picture:
-        <input type="file" name="image-url">
+{{!-- <p> --}}
+      <label for="image-url" id="upload">Profile Picture:
+        <input id='loadFile' type="file" name="image-url">
         <img id="profile-picture-preview" src="" alt="Preview of selected picture" width="200px" style="display: none;">
       </label>
-    </p>
+{{!-- </p> --}}
+  </div>
 
-    <button type="submit">Sign Up</button>
+    <button class="authBtn" type="submit">Sign Up</button>
 
     {{#if errorMessages}}
       <ul class="error">
