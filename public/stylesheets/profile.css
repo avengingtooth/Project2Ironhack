@@ -19,4 +19,73 @@
 .profile-data {
     display: flex;
     flex-direction: column;
+    color: var(--primary-color);
+    padding: 1rem;
+    width: 20rem;
+    justify-content: center;
+}
+
+.profile-data p {
+    display: flex;
+    margin: 0.2rem;
+}
+
+.profile-data-category {
+    font-size: 1rem;
+    font-weight: 700;
+    width: 12ch;
+}
+
+#edit-user-profile-form {
+    color: var(--primary-color);
+}
+
+#edit-user-profile-form label {
+    width: 16ch;
+    display: inline-block;
+}
+
+#edit-user-profile-form button {
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    border: 0.5px solid var(--background-color);
+    width: 100%;
+    margin: 0.5rem 0;
+}
+
+#edit-user-profile-form button:hover {
+    background-color: var(--background-color);
+    color: var(--primary-color);
+}
+
+#image-url {
+    display: none;
+}
+
+#image-url-label {
+    display: flex;
+}
+
+#edit-user-profile-form #image-url-label {
+    width: 40ch;
+    margin-top: 0.2rem;
+}
+
+#edit-user-profile-form #image-url-label span#fake-label{
+    width: 20ch;
+    display: inline-block;
+}
+
+.fake-button {
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    border: 0.5px solid var(--background-color);
+    width: 100%;
+    margin: 0.5rem 0;
+    padding: 0.2rem;
+}
+
+.fake-button:hover {
+    background-color: var(--background-color);
+    color: var(--primary-color);
 }
