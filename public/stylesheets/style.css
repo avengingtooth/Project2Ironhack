@@ -94,13 +94,13 @@ body {
   width: 50%;
 }
 
-.posts-comments-main  button, #login-form button{
+.posts-comments-main  button, .authBtn{
   background-color: var(--primary-color);
   color: var(--background-color);
   width: 100%;
 }
 
-.posts-comments-main button:hover, #login-form button:hover{
+.posts-comments-main button:hover, .authBtn:hover{
   background-color: var(--background-color);
   color: var(--primary-color);
 }
