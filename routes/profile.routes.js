@@ -91,7 +91,7 @@ router.get("/:userId", isLoggedIn, async (req, res, next) => {
     if (!isValidObjectId(id)) throw Error(`${id} is not a valid user id!`);
 
     const user = await User.findById(id)
-    let curUserPosts = await Post.find({author: id}, {password: 0}).populate('author tags')
+    let curUserPosts = await Post.find({author: id}, {password: 0}).sort('-createdAt').populate('author tags')
     let [follows, likes] = await likesAndFollows(req.session.currentUser)
 
     const followCount = (await Follow.find({follower: user})).length;
