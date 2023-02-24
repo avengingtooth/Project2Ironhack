@@ -44,15 +44,16 @@
 
 
 <div class="post-bottom-row">
-    <div class="posts-comments-main">
-        {{#if currentUser}}<button class="btn-comments">Show comments</button>
-        <div class="comments-container">
-            <div class="comments-feed-container"></div>
-            <form class="new-comment">
-                <textarea name="content" cols="20" rows="3" class="new-comment-content"></textarea>
-                <button class='btn-new-comment' type="submit">Post comment</button>
-            </form>
+    {{#if currentUser}}
+        <div class="posts-comments-main">
+            <button class="btn-comments">Show comments</button>
+            <div class="comments-container">
+                <div class="comments-feed-container"></div>
+                <form class="new-comment">
+                    <textarea name="content" cols="20" rows="3" class="new-comment-content"></textarea>
+                    <button class='btn-new-comment' type="submit">Post comment</button>
+                </form>
+            </div>
         </div>
-        {{/if}}
-    </div>
+    {{/if}}
 </div>

@@ -30,24 +30,26 @@
   <body>
     <nav class="navbar">
       <div id="navbar-search">
-        <form action="/search">
-        <div class="search-options">
-          
-          <input type="radio" name="category" id="tag" value="tag" {{#ifStringEquals searchCategory 'tag'}}checked{{/ifStringEquals}}>
-          <label for="tag">Tag</label>
-          
-          <input type="radio" name="category" id="users" value="users" {{#ifStringEquals searchCategory 'users'}}checked{{/ifStringEquals}}>
-          <label for="users">User</label>
-          
-          <input type="radio" name="category" id="posts" value="post" {{#ifStringEquals searchCategory 'post'}}checked{{/ifStringEquals}}>
-          <label for="posts">Post-Title</label>
-        </div>
-          
+        {{#if currentUser}}
+          <form action="/search">
+          <div class="search-options">
+            
+            <input type="radio" name="category" id="tag" value="tag" {{#ifStringEquals searchCategory 'tag'}}checked{{/ifStringEquals}}>
+            <label for="tag">Tag</label>
+            
+            <input type="radio" name="category" id="users" value="users" {{#ifStringEquals searchCategory 'users'}}checked{{/ifStringEquals}}>
+            <label for="users">User</label>
+            
+            <input type="radio" name="category" id="posts" value="post" {{#ifStringEquals searchCategory 'post'}}checked{{/ifStringEquals}}>
+            <label for="posts">Post-Title</label>
+          </div>
+            
 
-          <input type="text" name="search" id="searchterm" class="search-value" {{#if searchValue}}value="{{searchValue}}"{{/if}}>
-          
-          <input type="submit" value="Search" class="search-button">
-        </form>
+            <input type="text" name="search" id="searchterm" class="search-value" {{#if searchValue}}value="{{searchValue}}"{{/if}}>
+            
+            <input type="submit" value="Search" class="search-button">
+          </form>
+        {{/if}}
       </div>
 
       <div id="navbar-menu-options">
