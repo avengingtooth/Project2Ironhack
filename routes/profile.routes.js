@@ -62,7 +62,10 @@ router.post('/', isLoggedIn, fileUploader.single('image-url'), async (req, res, 
     if (errorMessages.length) return res.render('profile/myProfile', {errorMessages, user:updatedUser});
 
     if (req.file) {
-      const transformed = cloudinary.url(req.file.filename, {width: 200, crop: "limit"});
+      let transformed = cloudinary.url(req.file.filename, {width: 200, crop: "limit"});
+      if (transformed.startsWith('http:')) {
+        transformed = 'https' + transformed.slice(4);
+      }
       updatedUser.profilePictureURL = transformed;
       
     } else {

@@ -32,7 +32,7 @@ const userSchema = new Schema(
     profilePictureURL: {
       type: String,
       trim: true,
-      default: 'http://res.cloudinary.com/dmbdo5peg/image/upload/c_limit,w_200/v1/iron-social/sp7q5q4megyxjpveb5zq',
+      default: 'https://res.cloudinary.com/dmbdo5peg/image/upload/c_limit,w_200/v1/iron-social/sp7q5q4megyxjpveb5zq',
     }
   },
   {

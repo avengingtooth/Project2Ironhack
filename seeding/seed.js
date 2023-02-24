@@ -26,7 +26,7 @@ const users = [
         lastName: 'Vimes',
         email: 'vimes@citywatch.gov',
         password: 'qwertyu',
-        profilePictureURL: 'http://res.cloudinary.com/dmbdo5peg/image/upload/c_limit,w_200/v1/iron-social/pxmyzwjpsb8ryigxmyvq',
+        profilePictureURL: 'https://res.cloudinary.com/dmbdo5peg/image/upload/c_limit,w_200/v1/iron-social/pxmyzwjpsb8ryigxmyvq',
     },
     {
         username: 'carrot',
@@ -34,14 +34,14 @@ const users = [
         lastName: 'Ironfoundersson',
         email: 'captaincarrot@citywatch.gov',
         password: '123456',
-        profilePictureURL: 'http://res.cloudinary.com/dmbdo5peg/image/upload/c_limit,w_200/v1/iron-social/l3w8rtzelaltabcuipce',
+        profilePictureURL: 'https://res.cloudinary.com/dmbdo5peg/image/upload/c_limit,w_200/v1/iron-social/l3w8rtzelaltabcuipce',
     }, {
         username: 'patrician',
         firstName: 'Havelock',
         lastName: 'Vetinari',
         email: 'patrician@ankh-morpork.com',
         password: 'lajdghengdoe83jas@#$seda!@#ad',
-        profilePictureURL: 'http://res.cloudinary.com/dmbdo5peg/image/upload/c_limit,w_200/v1/iron-social/bdqrxkxi0hr3ptt7bcej',
+        profilePictureURL: 'https://res.cloudinary.com/dmbdo5peg/image/upload/c_limit,w_200/v1/iron-social/bdqrxkxi0hr3ptt7bcej',
     }, 
     {
         username: 'granny',
@@ -49,7 +49,7 @@ const users = [
         lastName: 'Weatherwax',
         email: 'grannyweatherwax@lancre.dw',
         password: 'password',
-        profilePictureURL: 'http://res.cloudinary.com/dmbdo5peg/image/upload/c_limit,w_200/v1/iron-social/whsajsw8wo2mgy2ricor',
+        profilePictureURL: 'https://res.cloudinary.com/dmbdo5peg/image/upload/c_limit,w_200/v1/iron-social/whsajsw8wo2mgy2ricor',
     },
     {
         username: 'nannyogg',
@@ -57,7 +57,7 @@ const users = [
         lastName: 'Ogg',
         email: 'nannyogg@lancre.dw',
         password: 'Hedgehog',
-        profilePictureURL: 'http://res.cloudinary.com/dmbdo5peg/image/upload/c_limit,w_200/v1/iron-social/pixc9bs91jcw06zerrkt',
+        profilePictureURL: 'https://res.cloudinary.com/dmbdo5peg/image/upload/c_limit,w_200/v1/iron-social/pixc9bs91jcw06zerrkt',
     },
     {
         username: 'mottschi',
@@ -65,7 +65,7 @@ const users = [
         lastName: 'Mottschall',
         email: 'basti@ironhack.com',
         password: '123456',
-        profilePictureURL: 'http://res.cloudinary.com/dmbdo5peg/image/upload/c_limit,w_200/v1/iron-social/kuo3j8kdkcv9myfyk7ay',
+        profilePictureURL: 'https://res.cloudinary.com/dmbdo5peg/image/upload/c_limit,w_200/v1/iron-social/kuo3j8kdkcv9myfyk7ay',
     },
     {
         username: 'emma',
@@ -80,7 +80,7 @@ const users = [
         lastName: 'Bird',
         email: 'tweety@looney-tunes.com',
         password: '123456',
-        profilePictureURL: 'http://res.cloudinary.com/dmbdo5peg/image/upload/c_limit,w_200/v1/iron-social/pd59rf6osbfurkhwi2f3',
+        profilePictureURL: 'https://res.cloudinary.com/dmbdo5peg/image/upload/c_limit,w_200/v1/iron-social/pd59rf6osbfurkhwi2f3',
     }
 ]
 
