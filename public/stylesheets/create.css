@@ -1,89 +1,93 @@
-
 /* general styles */
-#preview, #mdTips, #creation{
+.creationContainer{
+    display: grid;
+    grid-template-columns: 50% 1fr;
+    padding: 5% 5% 0 5%;
+    gap: 3%;
+    align-items: center;
+}
+
+#mdTips, #creation{
     background-color: var(--post-color);
     border: var(--primary-color) 1px solid;
     padding: 3% 0 3% 0;
     border-radius: 7%;
     height: 100%;
+    box-sizing: content-box;
 }
 
-.creationContainer{
-    display: grid;
-    grid-template-columns: 50% 1fr;
-    padding: 0 5% 0 5%;
-    height: 75%;
-    gap: 3%;
+#mdTips *{
+    margin: 1%;
+    width: max-content;
+    list-style-type: disc;
 }
-
-/* right side aka tips and preview styles */
 
 #mdTips{
-    width: 50%;
+    width: 60%;
     margin-right: 0;
     margin-left: auto;
-    font-size: small;
+    font-size: x-small;
+    align-content: space-between;
 }
 
 #mdTips > div{
     margin: auto;
 }
 
-#mdTips *{
-    width: fit-content;
-    margin: 0.5rem 0 0.5rem 0;
-    list-style-type: disc;
+
+body{
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr;
 }
 
 #preview{
     margin-top: 2%;
-    width: 100%;
-    align-self: flex-end;
-
-    overflow: scroll;
 }
 
-#mdInfo{
-    display: grid;
-    grid-template-rows: 40% 1fr;
-    gap: 3%;
+#mdInfo, #create{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
 }
 
- /* left side aka form styles */
-
-.creationContainer input, .creationContainer textarea, .creationContainer button{
+#create form *:not(div){
     background-color: var(--secondary-color);
     border: var(--primary-color) solid 1px;
+
+}
+
+.createTitle, .createContent, #create .submit{
+    height: 100%;
 }
 
 #creation{
+    box-sizing: border-box;
     display: grid;
     grid-template-rows: 20% 1fr 20% 10%;
-    width: 100%;
     align-items: center;
     padding: 10%;
     gap: 2%;
+    overflow: scroll;
+    height: 80%;
 }
 
 #creation > *{
     padding: 2%;
-    height: 100%;
     width: 100%;
+    height: 100%;
 }
 
-.title{
+.createTitle{
     text-align: center;
     font-size: x-large;
 }
 
-#create{
-    display: grid;
-    grid-template-rows: 20% 1fr;
-}
-
 #tagContainer{
-    overflow: scroll;
+    overflow-y: scroll;
     padding: 0;
+    height: 100%;
 }
 
 #newTagBtn{
@@ -97,5 +101,10 @@
 }
 
 .allTags{
-    margin-top: 6%;
+    margin-top: 6%; 
+}
+
+#mdInfo  .post-container{
+    height: fit-content;
+    margin-bottom: 0;
 }
