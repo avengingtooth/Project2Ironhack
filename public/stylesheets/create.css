@@ -71,7 +71,13 @@ body{
     gap: 2%;
     overflow: scroll;
     height: 80%;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
+
+#creation::-webkit-scrollbar{
+    display: none;
+  }
 
 #creation > *{
     padding: 2%;

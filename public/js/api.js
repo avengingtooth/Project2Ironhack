@@ -231,8 +231,8 @@ async function postComment(event) {
 // helper functions
 function formatDateTime(date) {
     const year = date.getFullYear();
-    let month = date.getMonth();
-    let day = date.getDay();
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
     let hour = date.getHours();
     let minutes = date.getMinutes();
     let seconds = date.getSeconds();

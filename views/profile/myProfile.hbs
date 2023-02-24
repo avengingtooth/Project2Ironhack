@@ -1,19 +1,17 @@
-<h2>My profile:</h2>
-
 <div class="user-profile">
     <picture>
         <img src="{{currentUser.profilePictureURL}}" alt="Profile Picture of {{currentUser.username}}">
     </picture>
 
     <div class="profile-data">
-        <p>username: {{currentUser.username}}</p>
-        <p>first name: {{currentUser.firstName}}</p>
-        <p>last name: {{currentUser.lastName}}</p>
-        <p>email: {{currentUser.email}}</p>
+        <p><span class="profile-data-category">Username: </span> <span>{{currentUser.username}}</span></p>
+        <p><span class="profile-data-category">First name: </span> <span>{{currentUser.firstName}}</span></p>
+        <p><span class="profile-data-category">Last name: </span> <span>{{currentUser.lastName}}</span></p>
+        <p><span class="profile-data-category">Email: </span> <span>{{currentUser.email}}</span></p>
     </div>
 
-    <form action="" method="POST" enctype="multipart/form-data">
-        <h3>Edit your data</h3>
+    <form id='edit-user-profile-form' action="" method="POST" enctype="multipart/form-data">
+        <h3>Update your data</h3>
 
         {{#if errorMessages}}
         <ul class="error">
@@ -25,31 +23,31 @@
 
         <div>
             <label for="username">Username:</label>
-            <input name="username" type="text" value="{{user.username}}">
+            <input name="username" type="text" value="{{user.username}}" id="username">
         </div>
         <div>
             <label for="email">Email:</label>
-            <input name="email" type="email" value="{{user.email}}">
+            <input name="email" type="email" value="{{user.email}}" id="email">
         </div>
         <div>
             <label for="firstName">First Name:</label>
-            <input name="firstName" type="text" value="{{user.firstName}}">
+            <input name="firstName" type="text" value="{{user.firstName}}" id="firstName">
         </div>
         <div>
             <label for="lastName">Last Name:</label>
-            <input name="lastName" type="text" value="{{user.lastName}}">
+            <input name="lastName" type="text" value="{{user.lastName}}" id="lastName">
         </div>
         <div>
-            <label for="password">New Password</label>
-            <input type="password" name="password">
+            <label for="password">New Password:</label>
+            <input type="password" name="password" id="password">
         </div>
         <div>
-            <label for="passwordConfirmation">New Password (repeat)</label>
-            <input type="password" name="passwordConfirmation">
+            <label for="passwordConfirmation">Repeat Password:</label>
+            <input type="password" name="passwordConfirmation" id="passwordConfirmation">
         </div>
         <div>
-            <label for="image-url">Profile Picture:</label>
-            <input type="file" name="image-url">
+            <label for="image-url" id="image-url-label"><span id="fake-label">Profile Picture:</span><span class="fake-button">Select file</span></label>
+            <input type="file" name="image-url" id="image-url">
         </div>
         <button>Save</button>
     </form>
