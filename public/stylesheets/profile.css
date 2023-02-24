@@ -13,4 +13,10 @@
 
 .user-profile img {
     border-radius: 1rem;
+    max-width: 200px;
+}
+
+.profile-data {
+    display: flex;
+    flex-direction: column;
 }

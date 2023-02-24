@@ -74,6 +74,14 @@ const users = [
         email: 'emma@ironhack.com',
         password: '123456',
     },
+    {
+        username: 'Tweety',
+        firstName: 'Tweety',
+        lastName: 'Bird',
+        email: 'tweety@looney-tunes.com',
+        password: '123456',
+        profilePictureURL: 'http://res.cloudinary.com/dmbdo5peg/image/upload/c_limit,w_200/v1/iron-social/pd59rf6osbfurkhwi2f3',
+    }
 ]
 
 const posts = [
@@ -147,6 +155,12 @@ const posts = [
         When passing the zoo, come in one, come in all,
         But the hedgehog...`,
         tags: ['witches', 'song', 'hedgehog', 'drinking']
+    },
+    {
+        author: 'Tweety',
+        title: "chirp chirp!",
+        content: `Tweety is a yellow canary in the Warner Bros. Looney Tunes and Merrie Melodies series of animated cartoons. The name "Tweety" is a play on words, as it originally meant "sweetie", along with "tweet" being an English onomatopoeia for the sounds of birds. His characteristics are based on Red Skelton's famous "Junior the Mean Widdle Kid." He appeared in 46 cartoons during the golden age, made between 1942 and 1964. `,
+        tags: ['tweety', 'looney', 'tunes', 'cartoon'],
     }
 ]
 

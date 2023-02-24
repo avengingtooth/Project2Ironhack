@@ -6,7 +6,7 @@
 // code based on an example found on stack overflow, but adjusted for our needs:
 // https://stackoverflow.com/questions/4459379/preview-an-image-before-it-is-uploaded
 const fileInput = document.querySelector('input[type="file"]');
-const previewElement = document.querySelector('img#preview');
+const previewElement = document.querySelector('img#profile-picture-preview');
 
 fileInput.addEventListener('change', (event)=>{
     const [file] = fileInput.files;
