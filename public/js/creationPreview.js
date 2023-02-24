@@ -9,8 +9,6 @@ function markdownParsing(content, loc){
         newLine = document.createElement('md-span')
     }
     newLine.classList.add('mdLine')
-
-    console.log(content.splice(`\w*(?<!\\)\(color\s+=.+\)`))
     newLine.textContent = content
     let contentContainer = document.querySelectorAll(loc)
     contentContainer[contentContainer.length-1].append(newLine)
